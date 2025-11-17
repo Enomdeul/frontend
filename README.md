@@ -4,4 +4,4 @@
 
 - [x] expo project 설치
 - [x] vite project 설치
-- [ ] shadcn/ui 세팅
+- [x] web에 shadcn/ui 세팅 [(공식 문서)](https://ui.shadcn.com/docs/installation/vite)
