@@ -7,6 +7,7 @@ import {SaveTaskButton} from "../components/newtask/SaveTaskButton";
 import attachment1 from "../assets/attachment-1-56586a.png";
 import attachment2 from "../assets/attachment-2-56586a.png";
 import attachment3 from "../assets/attachment-3-56586a.png";
+import {useCreateTask} from "@/service/tasks/queries";
 
 export function NewTask() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export function NewTask() {
     {id: 2, src: attachment2},
     {id: 3, src: attachment3},
   ]);
+  const {mutate: createTask} = useCreateTask();
 
   const handleRemoveAttachment = (id: number) => {
     setAttachments((prev) => prev.filter((att) => att.id !== id));
@@ -33,8 +35,7 @@ export function NewTask() {
   };
 
   const handleSave = () => {
-    // TODO: Implement save functionality
-    console.log("Saving task:", {taskName, notes, attachments});
+    createTask({task_name: taskName, notes, completed: false});
     navigate("/");
   };
 

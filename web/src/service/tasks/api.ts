@@ -11,7 +11,7 @@ export const getTasks = async () => {
   }
 };
 
-export const createTask = (task: Task) => axiosInstance.post<Task>("/tasks", task);
+export const createTask = (task: Omit<Task, "id">) => axiosInstance.post<Task>("", task);
 
 export const updateTask = (id: string, task: Task) => axiosInstance.put<Task>(`/tasks/${id}`, task);
 

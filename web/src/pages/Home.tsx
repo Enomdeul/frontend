@@ -1,22 +1,8 @@
-import {useState} from "react";
 import {HomeHeader} from "../components/layout/HomeHeader";
 import {TodoSection} from "../components/home/TodoSection";
 import {FloatingActionButton} from "../components/home/FloatingActionButton";
 import {useTasks} from "@/service/tasks/queries";
-import {Task} from "@/service/tasks/types";
-
-interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-}
-
-const initialTodos: Todo[] = [
-  {id: "1", text: "Design the new onboarding flow", completed: false},
-  {id: "2", text: "Develop the main feature", completed: false},
-  {id: "3", text: "Finalize the color palette for the app", completed: false},
-  {id: "4", text: "Review user feedback from survey", completed: true},
-];
+import type {Task} from "@/types/task";
 
 export function Home() {
   // const [todos, setTodos] = useState<Todo[]>(initialTodos);
