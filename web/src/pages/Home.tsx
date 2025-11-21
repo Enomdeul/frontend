@@ -1,14 +1,16 @@
 import {HomeHeader} from "../components/layout/HomeHeader";
 import {TodoSection} from "../components/home/TodoSection";
 import {FloatingActionButton} from "../components/home/FloatingActionButton";
-import {useTasks} from "@/service/tasks/queries";
+import {useTasks, useUpdateTask} from "@/service/tasks/queries";
 import type {Task} from "@/types/task";
 
 export function Home() {
   // const [todos, setTodos] = useState<Todo[]>(initialTodos);
 
+  const {mutate: updateTask} = useUpdateTask();
+
   const handleToggle = (id: string, completed: boolean) => {
-    // setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === id ? {...todo, completed} : todo)));
+    updateTask({id, task: {completed}});
   };
 
   const {data: tasks} = useTasks();
