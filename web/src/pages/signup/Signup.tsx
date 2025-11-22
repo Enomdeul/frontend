@@ -207,14 +207,14 @@ export function Signup() {
 
     return (
         <div className="bg-white relative w-full min-h-screen flex flex-col">
-            <Header onClick={() => navigate(-1)} />
-            {/* 폼 영역 */}
-            <div className="flex items-center justify-center px-6 sm:px-7 md:px-8 pt-8 pb-24">
-                <div className="flex flex-col gap-12 sm:gap-14 md:gap-16 w-full flex-1">
-                    {/* 첫 번째 섹션 */}
-                    <div className="flex flex-col gap-12 sm:gap-14 md:gap-16">
-                        {/* 아이디 */}
-                        <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 relative">
+            <Header content="회원가입" onClick={() => navigate(-1)} />
+            {/* 폼 영역 - Login.tsx와 동일한 반응형 구조 */}
+            <div className="flex flex-col w-full relative z-10">
+                <div className="flex flex-col w-full pt-8">
+                    <div className="flex flex-col w-full">
+                        {/* 폼 영역 - 아이디부터 완료 버튼까지 모두 나란하게 */}
+                        <div className="flex flex-col gap-6 px-4 py-10 w-full">
+                            {/* 아이디 */}
                             <TextField
                                 label="아이디"
                                 value={formData.id}
@@ -228,19 +228,17 @@ export function Signup() {
                                     onClick: handleCheckIdDuplicate
                                 }}
                             />
-                        </div>
 
-                        {/* 비밀번호 */}
-                        <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 relative">
-                            <TextField
-                                label="비밀번호"
-                                value={formData.password}
-                                onChange={handleChange("password")}
-                                placeholder="비밀번호를 입력해주세요."
-                                type="password"
-                                variant="signup"
-                            />
-                            <div className="mt-1.5 sm:mt-2 md:mt-2.5">
+                            {/* 비밀번호 */}
+                            <div className="flex flex-col gap-6">
+                                <TextField
+                                    label="비밀번호"
+                                    value={formData.password}
+                                    onChange={handleChange("password")}
+                                    placeholder="비밀번호를 입력해주세요."
+                                    type="password"
+                                    variant="signup"
+                                />
                                 <TextField
                                     value={formData.passwordConfirm}
                                     onChange={handleChange("passwordConfirm")}
@@ -251,13 +249,8 @@ export function Signup() {
                                     success={successes.passwordConfirm}
                                 />
                             </div>
-                        </div>
-                    </div>
 
-                    {/* 두 번째 섹션 */}
-                    <div className="flex flex-col gap-[53px]">
-                        {/* 이메일 */}
-                        <div className="flex flex-col gap-[6px] relative">
+                            {/* 이메일 */}
                             <TextField
                                 label="이메일"
                                 value={formData.email}
@@ -272,25 +265,22 @@ export function Signup() {
                                     onClick: handleCheckEmailDuplicate
                                 }}
                             />
+
+                            {/* 완료 버튼 */}
+                            <Button
+                                variant="primary"
+                                onClick={handleSignup}
+                                disabled={!isFormValid || signupMutation.isPending}
+                                width="w-full"
+                                style={{
+                                    height: '48px',
+                                    padding: '8px 12px',
+                                }}
+                            >
+                                {signupMutation.isPending ? "처리 중..." : "완료"}
+                            </Button>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="fixed bottom-0 left-0 right-0 w-full flex justify-center items-center px-3 sm:px-4 md:px-5 py-2">
-                <div className="w-full sm:gap-4 md:gap-5 items-center w-[91.8%] sm:w-[92%] md:w-[93%] max-w-[358px]">
-                    <Button
-                        variant="primary"
-                        onClick={handleSignup}
-                        disabled={!isFormValid || signupMutation.isPending}
-                        width="w-full"
-                        style={{
-                            height: '48px',
-                            padding: '8px 12px',
-                        }}
-                    >
-                        {signupMutation.isPending ? "처리 중..." : "완료"}
-                    </Button>
                 </div>
             </div>
         </div>
