@@ -48,13 +48,3 @@ expo sdk 버전에 호환되는 라이브러리 버전 설치
 ```bash
 npx expo install <라이브러리명>
 ```
-
-<br>
-
-### 트러블 슈팅
-
-**1. git 전송 가능한 버퍼 사이즈 초과**
-https://blog.joonas.io/264
-
-**2. 실패 insert로 인한 시퀀스와 테이블 값 충돌**
-https://supabase.com/docs/guides/troubleshooting/inserting-into-sequenceserial-table-causes-duplicate-key-violates-unique-constraint-error-pi6DnC
