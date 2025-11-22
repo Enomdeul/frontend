@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "lucide-react";
 import { textStyles } from "@/lib/typography";
 import SmallLogo from "@/assets/image/smallLogo.svg";
@@ -7,8 +8,51 @@ import { SkillChip } from "@/components/home/SkillChip";
 import { ProfileCardList } from "@/components/home/ProfileCardList";
 import { useNavigate } from "react-router";
 
+type Role = "designer" | "planner" | "developer" | null;
+
+// 스킬과 role 매핑 (나중에 API로 대체 가능)
+const skillToRoleMap: Record<string, Role> = {
+    "Adobe Premier": "designer",
+    "JAVA": "developer",
+    "Slack": "planner",
+    "Jira": "planner",
+    "Microsoft Word": null, // null이면 모든 role 표시
+};
+
+// 모든 프로필 데이터
+const allProfiles = [
+    {
+        role: "designer" as const,
+        name: "설정원",
+        age: 24,
+    },
+    {
+        role: "planner" as const,
+        name: "이은지",
+        age: 24,
+    },
+];
+
 export function Home() {
     const navigate = useNavigate();
+    const [selectedSkill1, setSelectedSkill1] = useState<string | null>(null);
+    const [selectedSkill2, setSelectedSkill2] = useState<string | null>(null);
+
+    // 첫 번째 섹션 필터링
+    const getFilteredProfiles1 = () => {
+        if (!selectedSkill1) return allProfiles;
+        const role = skillToRoleMap[selectedSkill1];
+        if (role === null) return allProfiles;
+        return allProfiles.filter((profile) => profile.role === role);
+    };
+
+    // 두 번째 섹션 필터링
+    const getFilteredProfiles2 = () => {
+        if (!selectedSkill2) return allProfiles;
+        const role = skillToRoleMap[selectedSkill2];
+        if (role === null) return allProfiles;
+        return allProfiles.filter((profile) => profile.role === role);
+    };
 
     return (
         <div className="relative w-full min-h-screen flex flex-col overflow-hidden">
@@ -30,7 +74,7 @@ export function Home() {
                     </div>
                     <button 
                       className="w-6 h-6 flex items-center justify-center"
-                      onClick={() => navigate("/card/my-detail")}
+                      onClick={() => navigate("/card/offered-list")}
                     >
                       <Link className="w-6 h-6 text-[#2A2A35]" />
                     </button>
@@ -63,25 +107,26 @@ export function Home() {
                             
                             {/* 스킬 칩들 */}
                             <div className="flex gap-3 flex-wrap">
-                                <SkillChip label="Adobe Premier" selected />
-                                <SkillChip label="JAVA" />
-                                <SkillChip label="Slack" />
+                                <SkillChip 
+                                    label="Adobe Premier" 
+                                    selected={selectedSkill1 === "Adobe Premier"}
+                                    onClick={() => setSelectedSkill1(selectedSkill1 === "Adobe Premier" ? null : "Adobe Premier")}
+                                />
+                                <SkillChip 
+                                    label="JAVA" 
+                                    selected={selectedSkill1 === "JAVA"}
+                                    onClick={() => setSelectedSkill1(selectedSkill1 === "JAVA" ? null : "JAVA")}
+                                />
+                                <SkillChip 
+                                    label="Slack" 
+                                    selected={selectedSkill1 === "Slack"}
+                                    onClick={() => setSelectedSkill1(selectedSkill1 === "Slack" ? null : "Slack")}
+                                />
                             </div>
 
                             {/* 작은 프로필 카드들 */}
                             <ProfileCardList
-                                profiles={[
-                                    {
-                                        role: "designer",
-                                        name: "설정원",
-                                        age: 24,
-                                    },
-                                    {
-                                        role: "planner",
-                                        name: "이은지",
-                                        age: 24,
-                                    },
-                                ]}
+                                profiles={getFilteredProfiles1()}
                                 onCardClick={(profile) => {
                                     // TODO: 실제 유저 ID를 사용하도록 수정 필요
                                     navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);
@@ -104,25 +149,26 @@ export function Home() {
                             
                             {/* 스킬 칩들 */}
                             <div className="flex gap-3 flex-wrap">
-                                <SkillChip label="Jira" selected />
-                                <SkillChip label="Slack" />
-                                <SkillChip label="Microsoft Word" />
+                                <SkillChip 
+                                    label="Jira" 
+                                    selected={selectedSkill2 === "Jira"}
+                                    onClick={() => setSelectedSkill2(selectedSkill2 === "Jira" ? null : "Jira")}
+                                />
+                                <SkillChip 
+                                    label="Slack" 
+                                    selected={selectedSkill2 === "Slack"}
+                                    onClick={() => setSelectedSkill2(selectedSkill2 === "Slack" ? null : "Slack")}
+                                />
+                                <SkillChip 
+                                    label="Microsoft Word" 
+                                    selected={selectedSkill2 === "Microsoft Word"}
+                                    onClick={() => setSelectedSkill2(selectedSkill2 === "Microsoft Word" ? null : "Microsoft Word")}
+                                />
                             </div>
 
-                            {/* 작은 프로필 카드들 (동일) */}
+                            {/* 작은 프로필 카드들 */}
                             <ProfileCardList
-                                profiles={[
-                                    {
-                                        role: "designer",
-                                        name: "설정원",
-                                        age: 24,
-                                    },
-                                    {
-                                        role: "planner",
-                                        name: "이은지",
-                                        age: 24,
-                                    },
-                                ]}
+                                profiles={getFilteredProfiles2()}
                                 onCardClick={(profile) => {
                                     // TODO: 실제 유저 ID를 사용하도록 수정 필요
                                     navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);

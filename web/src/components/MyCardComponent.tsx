@@ -19,9 +19,11 @@ export interface MyCardData {
 
 interface MyCardComponentProps {
   data: MyCardData;
+  className?: string;
+  showSkillBorder?: boolean;
 }
 
-export function MyCardComponent({data}: MyCardComponentProps) {
+export function MyCardComponent({data, className, showSkillBorder}: MyCardComponentProps) {
   // Map skill IDs to skill names
   const getSkillNames = (skills: {skillId: number; skillName: string}[]): string[] => {
     if (!skills) return [];
@@ -37,7 +39,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
   const secondRowSkills = skillNames.slice(2);
 
   return (
-    <div className="relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60">
+    <div className={`relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 ${className || ""}`}>
       {/* Profile Background Image */}
       <div className="absolute left-[113.29px] top-[-66px] w-[315.12px] h-[351.84px] pointer-events-none">
         <img src={symbolMap[data.jobGroup]} alt="" className="w-auto object-contain" />
@@ -74,7 +76,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
               {firstRowSkills.length > 0 && (
                 <div className="flex items-center gap-2">
                   {firstRowSkills.map((skill, index) => (
-                    <div key={index} className="flex items-center justify-center rounded-[25.6px] bg-white/24 px-3 py-2 gap-1">
+                    <div key={index} className={`flex items-center justify-center rounded-[25.6px] bg-white/24 px-3 py-2 gap-1 ${showSkillBorder ? "border border-[#cfcfd7]" : ""}`}>
                       <span className={`${textStyles.caption.medium} text-[#668CFF]`}>{skill}</span>
                     </div>
                   ))}
@@ -84,7 +86,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
               {secondRowSkills.length > 0 && (
                 <div className="flex items-center gap-2">
                   {secondRowSkills.map((skill, index) => (
-                    <div key={index} className="flex items-center justify-center rounded-[25.6px] bg-white/24 px-3 py-2 gap-1">
+                    <div key={index} className={`flex items-center justify-center rounded-[25.6px] bg-white/24 px-3 py-2 gap-1 ${showSkillBorder ? "border border-[#cfcfd7]" : ""}`}>
                       <span className={`${textStyles.caption.medium} text-[#668CFF]`}>{skill}</span>
                     </div>
                   ))}
@@ -99,7 +101,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
             {/* Desired Skills Container - gap: 8px (horizontal) */}
             <div className="flex items-center gap-2">
               {desiredSkillNames.map((skill, index) => (
-                <div key={index} className="flex items-center justify-center rounded-[25.6px] bg-[rgba(102,140,255,0.18)] px-3 py-2 gap-1">
+                <div key={index} className={`flex items-center justify-center rounded-[25.6px] bg-[rgba(102,140,255,0.18)] px-3 py-2 gap-1 ${showSkillBorder ? "border border-[#cfcfd7]" : ""}`}>
                   <span className={`${textStyles.caption.medium} text-[#668CFF]`}>{skill}</span>
                 </div>
               ))}
