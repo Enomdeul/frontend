@@ -1,46 +1,27 @@
-import { useNavigate, useLocation } from "react-router";
-import { ChevronLeft } from 'lucide-react';
-import type { ReactNode } from "react";
-import { textStyles } from "@/lib/typography";
+import {ChevronLeft} from "lucide-react";
+import {textStyles} from "@/lib/typography";
+import type {ReactNode} from "react";
 
-const backComponentMap: Record<string, ReactNode> = {
-	'/createcard': <span className={textStyles.subtitle.semibold}>My카드만들기</span>,
-	'/signup': <span className={textStyles.subtitle.semibold}>회원가입</span>,
-};
+interface HeaderProps {
+  content?: ReactNode;
+  onClick: () => void;
+}
 
-// 뒤로가기만 필요한 경로들
-const backOnlyPaths = ['/login'];
+export default function Header({content, onClick}: HeaderProps) {
+  return (
+    <div className="bg-white flex items-stretch w-full h-[54px] sticky top-0 z-10">
+      {/* Left Icon Button */}
+      <button className="flex items-center justify-center w-[54px] h-[54px] p-[10px_12px]" onClick={onClick}>
+        <ChevronLeft size={24} className="text-[#2A2A35]" />
+      </button>
 
-export default function Header() {
-	const navigate = useNavigate();
-	const location = useLocation();
-	const path = location.pathname;
+      {/* Center Title */}
+      <div className="flex-1 flex items-center justify-center">
+        <span className={`${textStyles.subtitle.semibold} text-[18px] leading-[1.5em] text-center text-[#2A2A35]`}>{content}</span>
+      </div>
 
-	// splash, root 경로에서는 Header 숨김
-	if (path === '/splash' || path === '/') return null;
-
-	const centerComponent = backComponentMap[path];
-	const isBackOnly = backOnlyPaths.includes(path);
-
-	// 뒤로가기만 필요한 경우 또는 중앙 컴포넌트가 있는 경우
-	if (isBackOnly || centerComponent) {
-		return (
-			<div className="bg-white p-3 flex items-center h-16">
-				<button
-					className="w-[30%] bg-white text-xl font-basic flex items-center gap-2"
-					onClick={() => navigate(-1)}
-				>
-					<ChevronLeft size={20} color="#000" />
-				</button>
-
-				{centerComponent && (
-					<div className="w-[40%] flex items-center justify-center">
-						{centerComponent}
-					</div>
-				)}
-			</div>
-		);
-	}
-
-	return null;
+      {/* Right Spacer */}
+      <div className="w-[54px] h-[54px] p-3" />
+    </div>
+  );
 }

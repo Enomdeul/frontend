@@ -14,5 +14,12 @@ export default defineConfig({
   server: {
     host: "0.0.0.0", // 모든 네트워크 인터페이스에서 접근 가능하도록 설정
     port: 5173,
+    proxy: {
+      "/api": {
+        target: process.env.VITE_API_BASE_URL as string,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
 });
