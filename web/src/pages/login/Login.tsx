@@ -61,20 +61,20 @@ export function Login() {
 
     return (
         <div className="bg-white relative w-full min-h-screen flex flex-col overflow-hidden">
-            {/* 배경 그라데이션 원형 요소들 */}
-            <div className="absolute left-[calc(87.5%-15.75px)] top-[74px] w-[545px] h-[545px] translate-x-[-50%]">
+            {/* 배경 그라데이션 원형 요소들 - 하단 배치 */}
+            <div className="absolute left-[calc(87.5%-15.75px)] bottom-0 w-[545px] h-[545px] translate-x-[-50%]">
                 <div className="absolute inset-[-44.04%]">
                     <img 
                         alt="" 
-                        src="https://www.figma.com/api/mcp/asset/167ef229-a927-4196-823c-400961a05406" 
+                        src="https://www.figma.com/api/mcp/asset/77ed3e49-09cc-4e45-8bef-94ddfe09ca36" 
                         className="block max-w-none w-full h-full"
                     />
                 </div>
             </div>
-            <div className="absolute left-[-27.76px] top-[546.08px] w-[338.425px] h-[334.919px]">
+            <div className="absolute left-[-27.76px] bottom-0 w-[338.425px] h-[334.919px]">
                 <img 
                     alt="" 
-                    src="https://www.figma.com/api/mcp/asset/9059184c-98f9-4b04-8ec5-a173c3b8bc0e" 
+                    src="https://www.figma.com/api/mcp/asset/0d61b6f3-76c4-4e7a-98ef-2335660aca96" 
                     className="block max-w-none w-full h-full"
                 />
             </div>
