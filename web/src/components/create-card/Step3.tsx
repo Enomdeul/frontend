@@ -7,7 +7,7 @@ interface Step3Props {
 
 export function Step3({data, setData}: Step3Props) {
   const {selectedSkills} = data;
-  console.log(selectedSkills);
+
   const MAX_SKILLS = 5;
 
   const handleUpdate = (updatedSkills: number[]) => {

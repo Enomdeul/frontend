@@ -53,14 +53,14 @@ export function Step1({data, setData}: Step1Props) {
             <label className={`${textStyles.body1.semibold} text-gray-900`}>성별</label>
             <div className="flex gap-2">
               <button
-                onClick={() => setData({...data, gender: "남자"})}
-                className={`flex-1 flex items-center justify-center gap-3 px-3 py-[15px] rounded-xl transition-colors ${gender === "남자" ? "bg-blue-500 text-white" : "bg-gray-50 text-gray-500"} ${textStyles.button.button1}`}
+                onClick={() => setData({...data, gender: "MALE"})}
+                className={`flex-1 flex items-center justify-center gap-3 px-3 py-[15px] rounded-xl transition-colors ${gender === "MALE" ? "bg-blue-500 text-white" : "bg-gray-50 text-gray-500"} ${textStyles.button.button1}`}
               >
                 남자
               </button>
               <button
-                onClick={() => setData({...data, gender: "여자"})}
-                className={`flex-1 flex items-center justify-center gap-3 px-3 py-[15px] rounded-xl transition-colors ${gender === "여자" ? "bg-blue-500 text-white" : "bg-gray-50 text-gray-500"} ${textStyles.button.button1}`}
+                onClick={() => setData({...data, gender: "FEMALE"})}
+                className={`flex-1 flex items-center justify-center gap-3 px-3 py-[15px] rounded-xl transition-colors ${gender === "FEMALE" ? "bg-blue-500 text-white" : "bg-gray-50 text-gray-500"} ${textStyles.button.button1}`}
               >
                 여자
               </button>

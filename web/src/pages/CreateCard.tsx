@@ -10,6 +10,10 @@ import type {Step1Data, Step2Data, Step3Data, Step4Data} from "@/types/steps";
 import type {CardFormData} from "@/service/create-card/api";
 import {useCreateCard} from "@/service/create-card/queries";
 import {useNavigate} from "react-router";
+import {jobGroupIds} from "@/constants/jobGroup";
+import {useSkills} from "@/service/skills/queries";
+import type {MyCardData} from "@/components/MyCardComponent";
+import {useIsLogin} from "@/hooks/useIsLogin";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -34,6 +38,8 @@ function ProgressBar({currentStep}: ProgressBarProps) {
 }
 
 export function CreateCard() {
+  useIsLogin();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [step1, setStep1] = useState<Step1Data>({
     ...initialStepData.step1,
@@ -44,22 +50,52 @@ export function CreateCard() {
 
   const {mutate: createCard} = useCreateCard();
   const navigate = useNavigate();
+  const {data: skillsData} = useSkills();
+
   const handleChangeStep = () => {
     if (currentStep === 4) {
-      // TODO: API 연결
+      // API 요청용 데이터
       const cardFormData: CardFormData = {
         name: step1.name,
         age: parseInt(step1.age),
+        gender: step1.gender,
         organization: step1.school,
-        jobGroup: step1.job,
+        jobGroup: jobGroupIds[step1.job],
         introduction: step4.introduction,
-        skills: step2.selectedSkills,
-        desiredSkills: step3.selectedSkills,
+        skills: step2.selectedSkills.map((skillId) => ({skillId})),
+        desiredSkills: step3.selectedSkills.map((skillId) => ({skillId})),
+      };
+
+      // 스킬 이름 매핑을 위한 함수
+      const getSkillName = (skillId: number): string => {
+        if (!skillsData) return "";
+        for (const skillGroup of skillsData) {
+          const skill = skillGroup.skills.find((s) => s.skillId === skillId);
+          if (skill) return skill.skillName;
+        }
+        return "";
+      };
+
+      // MyCard로 전달할 데이터 (스킬 이름 포함)
+      const myCardData: MyCardData = {
+        name: step1.name,
+        age: parseInt(step1.age),
+        jobGroup: step1.job, // step1.job은 이미 한국어("기획", "디자인", "개발")
+        organization: step1.school,
+        introduction: step4.introduction,
+        skills: step2.selectedSkills.map((skillId) => ({
+          skillId,
+          skillName: getSkillName(skillId),
+        })),
+        desiredSkills: step3.selectedSkills.map((skillId) => ({
+          skillId,
+          skillName: getSkillName(skillId),
+        })),
       };
 
       createCard(cardFormData);
-      console.log("완료");
-      navigate("/card/my");
+
+      navigate("/card/my", {state: {cardData: myCardData}});
       return;
     }
 
@@ -68,6 +104,7 @@ export function CreateCard() {
 
   const handleClickPrev = () => {
     if (currentStep === 1) {
+      navigate("/");
       return;
     }
 

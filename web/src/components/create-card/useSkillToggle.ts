@@ -7,7 +7,6 @@ interface UseSkillToggleProps {
 }
 
 export function useSkillToggle({selectedSkills, maxSkills, onUpdate}: UseSkillToggleProps) {
-  console.log(selectedSkills);
   const handleToggleSkill = useCallback(
     (skillId: number) => {
       const isSelected = selectedSkills.includes(skillId);
