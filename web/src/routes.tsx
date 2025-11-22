@@ -4,6 +4,7 @@ import {Signup} from "./pages/signup/Signup";
 import {Splash} from "./pages/signup/Splash";
 import {CreateCard} from "./pages/CreateCard";
 import {Login} from "./pages/login/Login";
+import {MyCard} from "./pages/MyCard";
 
 export const routes = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const routes = createBrowserRouter([
   {
     path: "/card/create",
     element: <CreateCard />,
+  },
+  {
+    path: "/card/my",
+    element: <MyCard />,
   },
 ]);

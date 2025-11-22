@@ -14,14 +14,15 @@ export function Step4({data, setData}: Step4Props) {
   };
 
   return (
-    <div>
-      <h1 className={`${textStyles.h1} text-gray-800 mb-8 relative z-10`}>
-        카드를 완성하기 전에
+    <div className="flex flex-col">
+      <h1 className={`${textStyles.h1} text-gray-800 mb-8 relative z-10 px-4 pt-8`}>
+        마지막으로
         <br />
-        마지막으로 입력해주세요.
+        소개를 작성해볼까요?
       </h1>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 px-4">
         <label className={`${textStyles.body1.semibold} text-gray-900`}>한 줄 소개</label>
+
         <div className="flex items-center border border-gray-100 rounded-xl bg-white px-4 py-4">
           <textarea
             value={introduction}

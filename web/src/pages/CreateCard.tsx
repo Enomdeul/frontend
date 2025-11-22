@@ -7,6 +7,9 @@ import {initialStepData} from "@/constants/steps";
 import {Step1} from "@/components/create-card/Step1";
 import Button from "@/components/Button";
 import type {Step1Data, Step2Data, Step3Data, Step4Data} from "@/types/steps";
+import type {CardFormData} from "@/service/create-card/api";
+import {useCreateCard} from "@/service/create-card/queries";
+import {useNavigate} from "react-router";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -39,10 +42,24 @@ export function CreateCard() {
   const [step3, setStep3] = useState<Step3Data>(initialStepData.step3);
   const [step4, setStep4] = useState<Step4Data>(initialStepData.step4);
 
+  const {mutate: createCard} = useCreateCard();
+  const navigate = useNavigate();
   const handleChangeStep = () => {
-    if (currentStep === 5) {
+    if (currentStep === 4) {
       // TODO: API 연결
+      const cardFormData: CardFormData = {
+        name: step1.name,
+        age: parseInt(step1.age),
+        organization: step1.school,
+        jobGroup: step1.job,
+        introduction: step4.introduction,
+        skills: step2.selectedSkills,
+        desiredSkills: step3.selectedSkills,
+      };
+
+      createCard(cardFormData);
       console.log("완료");
+      navigate("/card/my");
       return;
     }
 
