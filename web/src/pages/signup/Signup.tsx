@@ -3,15 +3,13 @@ import Header from "@/components/Header";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
 import { useNavigate } from "react-router";
-import { useCheckIdDuplicate, useCheckEmailDuplicate } from "@/service/auth/queries";
-// import { useSignup } from "@/service/auth/queries";
-// import type { ApiErrorResponse } from "@/types/auth";
-// import axios from "axios";
+import { useCheckIdDuplicate, useCheckEmailDuplicate, useSignup } from "@/service/auth/queries";
+import type { ApiErrorResponse } from "@/types/auth";
 
 export function Signup() {
     const checkIdMutation = useCheckIdDuplicate();
     const checkEmailMutation = useCheckEmailDuplicate();
-    // const { mutate: signup } = useSignup();
+    const signupMutation = useSignup();
     const [formData, setFormData] = useState({
         id: "",
         password: "",
@@ -24,24 +22,15 @@ export function Signup() {
         password?: string;
         passwordConfirm?: string;
         email?: string;
-    }>({
-        // id: "이미 존재하는 아이디에요요.",
-        // passwordConfirm: "비밀번호가 일치하지 않아요요.",
-        // email: "이미 가입한 이메일이에요.",
-    });
+    }>({});
 
     const [successes, setSuccesses] = useState<{
         id?: string;
         password?: string;
         passwordConfirm?: string;
         email?: string;
-    }>({
-        // id: "아이디 설정이 완료됐어요.",
-        // passwordConfirm: "비밀번호 설정이 완료됐어요.",
-        // email: "이메일 설정이 완료됐어요.",
-    });
+    }>({});
 
-    // 특정 필드의 에러/성공 메시지 제거 함수
     const clearFieldMessage = (field: keyof typeof errors) => {
         setErrors(prev => {
             const newErrors = { ...prev };
@@ -55,7 +44,6 @@ export function Signup() {
         });
     };
 
-    // 비밀번호 일치 여부 체크 함수
     const checkPasswordMatch = (password: string, passwordConfirm: string) => {
         clearFieldMessage("passwordConfirm");
 
@@ -89,33 +77,97 @@ export function Signup() {
 
     const navigate = useNavigate();
 
+    const isFormValid = !!(
+        successes.id && 
+        successes.passwordConfirm && 
+        successes.email &&
+        formData.id &&
+        formData.password &&
+        formData.email
+    );
+
+    const handleSignup = async () => {
+        // 추가 검증
+        if (!formData.id || !formData.password || !formData.email) {
+            if (!formData.id) {
+                setErrors(prev => ({ ...prev, id: "아이디를 입력해주세요." }));
+            }
+            if (!formData.password) {
+                setErrors(prev => ({ ...prev, password: "비밀번호를 입력해주세요." }));
+            }
+            if (!formData.email) {
+                setErrors(prev => ({ ...prev, email: "이메일을 입력해주세요." }));
+            }
+            return;
+        }
+
+        // 비밀번호 확인 재검증
+        if (formData.password !== formData.passwordConfirm) {
+            setErrors(prev => ({ 
+                ...prev, 
+                passwordConfirm: "비밀번호가 일치하지 않아요." 
+            }));
+            return;
+        }
+
+        try {
+            const response = await signupMutation.mutateAsync({
+                loginId: formData.id,
+                password: formData.password,
+                email: formData.email,
+            });
+            
+            console.log("회원가입 성공:", response);
+            navigate("/login");
+        } catch (error: unknown) {
+            if (error && typeof error === 'object' && 'response' in error) {
+                const axiosError = error as { response?: { data?: ApiErrorResponse } };
+                const errorData = axiosError.response?.data;
+                
+                if (errorData) {
+                    if (errorData.code === "DUPLICATE_LOGIN_ID" || errorData.message?.includes("아이디") || errorData.message?.includes("로그인")) {
+                        setErrors(prev => ({ 
+                            ...prev, 
+                            id: errorData.message || "이미 존재하는 아이디예요." 
+                        }));
+                    } else if (errorData.code === "DUPLICATE_EMAIL" || errorData.message?.includes("이메일") || errorData.message?.includes("email")) {
+                        setErrors(prev => ({ 
+                            ...prev, 
+                            email: errorData.message || "이미 가입한 이메일이에요." 
+                        }));
+                    } else {
+                        console.error("회원가입 실패:", errorData.message);
+                    }
+                }
+            } else {
+                console.error("회원가입 중 오류 발생:", error);
+            }
+        }
+    };
+
     const handleCheckIdDuplicate = async () => {
         if (!formData.id) {
             setErrors(prev => ({ ...prev, id: "아이디를 입력해주세요." }));
             return;
         }
 
-        // 기존 메시지 제거
         clearFieldMessage("id");
 
         try {
             const response = await checkIdMutation.mutateAsync(formData.id);
             
             if (response.result.available) {
-                // 사용 가능한 경우: 성공 메시지 표시
                 setSuccesses(prev => ({ 
                     ...prev, 
                     id: "아이디 설정이 완료됐어요." 
                 }));
             } else {
-                // 중복인 경우: 에러 메시지 표시
                 setErrors(prev => ({ 
                     ...prev, 
                     id: "이미 존재하는 아이디예요." 
                 }));
             }
         } catch {
-            // API 에러 처리
             setErrors(prev => ({ 
                 ...prev, 
                 id: "중복 확인 중 오류가 발생했습니다." 
@@ -129,27 +181,23 @@ export function Signup() {
             return;
         }
 
-        // 기존 메시지 제거
         clearFieldMessage("email");
 
         try {
             const response = await checkEmailMutation.mutateAsync(formData.email);
             
             if (response.result.available) {
-                // 사용 가능한 경우: 성공 메시지 표시
                 setSuccesses(prev => ({ 
                     ...prev, 
                     email: "이메일 설정이 완료됐어요." 
                 }));
             } else {
-                // 중복인 경우: 에러 메시지 표시
                 setErrors(prev => ({ 
                     ...prev, 
                     email: "이미 가입한 이메일이에요." 
                 }));
             }
         } catch {
-            // API 에러 처리
             setErrors(prev => ({ 
                 ...prev, 
                 email: "중복 확인 중 오류가 발생했습니다." 
@@ -233,14 +281,15 @@ export function Signup() {
                 <div className="w-full sm:gap-4 md:gap-5 items-center w-[91.8%] sm:w-[92%] md:w-[93%] max-w-[358px]">
                     <Button
                         variant="primary"
-                        onClick={() => navigate("/signup")}
+                        onClick={handleSignup}
+                        disabled={!isFormValid || signupMutation.isPending}
                         width="w-full"
                         style={{
                             height: '48px',
                             padding: '8px 12px',
                         }}
                     >
-                        완료
+                        {signupMutation.isPending ? "처리 중..." : "완료"}
                     </Button>
                 </div>
             </div>
