@@ -2,11 +2,13 @@ import { Link } from "lucide-react";
 import { textStyles } from "@/lib/typography";
 import SmallLogo from "@/assets/image/smallLogo.svg";
 import homeBackground from "@/assets/image/homeBackground.svg";
-import { MyCard } from "@/components/home/MyCard";
+import { HomeMyCard } from "@/components/home/HomeMyCard";
 import { SkillChip } from "@/components/home/SkillChip";
 import { ProfileCardList } from "@/components/home/ProfileCardList";
+import { useNavigate } from "react-router";
 
 export function Home() {
+    const navigate = useNavigate();
 
     return (
         <div className="relative w-full min-h-screen flex flex-col overflow-hidden">
@@ -26,8 +28,11 @@ export function Home() {
                             className="block w-full h-full"
                         />
                     </div>
-                    <button className="w-6 h-6 flex items-center justify-center">
-                        <Link className="w-6 h-6 text-[#2A2A35]" />
+                    <button 
+                      className="w-6 h-6 flex items-center justify-center"
+                      onClick={() => navigate("/card/my-detail")}
+                    >
+                      <Link className="w-6 h-6 text-[#2A2A35]" />
                     </button>
                 </div>
 
@@ -37,7 +42,7 @@ export function Home() {
                         My 카드
                     </h1>
                     <div className="pt-6 w-full max-w-[358px]">
-                        <MyCard />
+                        <HomeMyCard />
                     </div>
                 </div>
                 {/* 스킬 섹션들 */}
@@ -70,29 +75,31 @@ export function Home() {
                                         role: "designer",
                                         name: "설정원",
                                         age: 24,
-                                        profileImage: "https://www.figma.com/api/mcp/asset/54cacb0c-e897-4d67-bc03-888aa2eb7873",
                                     },
                                     {
                                         role: "planner",
                                         name: "이은지",
                                         age: 24,
-                                        profileImage: "https://www.figma.com/api/mcp/asset/b23b1ed8-8dd9-4a9d-9691-916c7f49dbd2",
                                     },
                                 ]}
+                                onCardClick={(profile) => {
+                                    // TODO: 실제 유저 ID를 사용하도록 수정 필요
+                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);
+                                }}
                             />
                         </div>
 
                         {/* "Add more Skills!" 섹션 */}
                         <div className="flex flex-col gap-4">
-                          <div className="flex flex-col items-start gap-1">
-                              <img 
-                                  alt="" 
-                                  src="https://www.figma.com/api/mcp/asset/0aa2bf1c-d934-472c-b99f-4ae8b61659be" 
-                                  className="w-[10.893px] h-[10.698px]"
-                              />
-                              <h3 className={`${textStyles.h3} text-[20px] text-[#2A2A35]`}>
-                                  Add your Skills!
-                              </h3>
+                            <div className="flex flex-col items-start gap-1">
+                                <img 
+                                    alt="" 
+                                    src="https://www.figma.com/api/mcp/asset/0aa2bf1c-d934-472c-b99f-4ae8b61659be" 
+                                    className="w-[10.893px] h-[10.698px]"
+                                />
+                                <h3 className={`${textStyles.h3} text-[20px] text-[#2A2A35]`}>
+                                    Add more Skills!
+                                </h3>
                             </div>
                             
                             {/* 스킬 칩들 */}
@@ -109,15 +116,17 @@ export function Home() {
                                         role: "designer",
                                         name: "설정원",
                                         age: 24,
-                                        profileImage: "https://www.figma.com/api/mcp/asset/54cacb0c-e897-4d67-bc03-888aa2eb7873",
                                     },
                                     {
                                         role: "planner",
                                         name: "이은지",
                                         age: 24,
-                                        profileImage: "https://www.figma.com/api/mcp/asset/b23b1ed8-8dd9-4a9d-9691-916c7f49dbd2",
                                     },
                                 ]}
+                                onCardClick={(profile) => {
+                                    // TODO: 실제 유저 ID를 사용하도록 수정 필요
+                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);
+                                }}
                             />
                         </div>
                     </div>

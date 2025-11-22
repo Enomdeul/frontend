@@ -4,14 +4,15 @@ interface ProfileCardData {
     role: "designer" | "planner" | "developer";
     name: string;
     age: number;
-    profileImage: string;
+    userId?: number; // 유저 ID 추가 (선택적)
 }
 
 interface ProfileCardListProps {
     profiles: ProfileCardData[];
+    onCardClick?: (profile: ProfileCardData) => void;
 }
 
-export function ProfileCardList({ profiles }: ProfileCardListProps) {
+export function ProfileCardList({ profiles, onCardClick }: ProfileCardListProps) {
     return (
         <div className="flex gap-4">
             {profiles.map((profile, index) => (
@@ -20,7 +21,7 @@ export function ProfileCardList({ profiles }: ProfileCardListProps) {
                     role={profile.role}
                     name={profile.name}
                     age={profile.age}
-                    profileImage={profile.profileImage}
+                    onClick={() => onCardClick?.(profile)}
                 />
             ))}
         </div>

@@ -1,29 +1,37 @@
 import { textStyles } from "@/lib/typography";
-// import homeBackground from "@/assets/image/homeBackground.svg";
+import { symbolMap } from "@/constants/symbol";
 
 interface ProfileCardProps {
     role: "designer" | "planner" | "developer";
     name: string;
     age: number;
-    profileImage: string;
+    onClick: () => void;
 }
 
-export function ProfileCard({ role, name, age, profileImage }: ProfileCardProps) {
+export function ProfileCard({ role, name, age, onClick }: ProfileCardProps) {
+    // role에 따라 symbol 이미지 매핑
+    const roleToSymbolMap: Record<"designer" | "planner" | "developer", string> = {
+        designer: symbolMap["디자인"],
+        planner: symbolMap["기획"],
+        developer: symbolMap["개발"],
+    };
+
+    const profileImage = roleToSymbolMap[role];
     // 역할별 스타일 설정
     const roleStyles = {
         designer: {
-            container: "absolute flex items-center justify-center left-[45px] top-[-5px] w-[170.957px] h-[170.957px]",
-            imageWrapper: "flex-none rotate-[211.706deg] scale-y-[-100%]",
+            container: "absolute flex items-center justify-center left-[45px] top-[-15px] w-[170.957px] h-[170.957px]",
+            imageWrapper: "flex-none scale-y-[-100%]",
             imageSize: "w-[124.214px] h-[124.214px]",
         },
         planner: {
-            container: "absolute flex h-[150.893px] items-center justify-center left-[63px] top-[5px] w-[142.29px]",
-            imageWrapper: "flex-none rotate-[204.512deg] scale-y-[-100%]",
+            container: "absolute flex h-[150.893px] items-center justify-center left-[63px] top-[-10px] w-[142.29px]",
+            imageWrapper: "flex-none scale-y-[-100%]",
             imageSize: "h-[119.345px] relative w-[101.965px]",
         },
         developer: {
-            container: "absolute flex h-[139.772px] items-center justify-center left-[62px] top-[4px] w-[131.293px]",
-            imageWrapper: "flex-none rotate-[308.929deg]",
+            container: "absolute flex h-[139.772px] items-center justify-center left-[62px] top-[-10px] w-[131.293px]",
+            imageWrapper: "flex-none",
             imageSize: "h-[68.03px] relative w-[124.722px]",
         },
     };
@@ -31,7 +39,10 @@ export function ProfileCard({ role, name, age, profileImage }: ProfileCardProps)
     const styles = roleStyles[role];
 
     return (
-        <div className="h-[108px] w-[164px] rounded-[12px] overflow-hidden relative bg-[#F0F4FF]">
+        <div 
+            className="h-[108px] w-[164px] rounded-[12px] overflow-hidden relative bg-[#F0F4FF] cursor-pointer"
+            onClick={onClick}
+        >
             {/* 프로필 이미지 */}
             <div className={styles.container}>
                 <div className={styles.imageWrapper}>
