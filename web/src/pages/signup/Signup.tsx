@@ -21,7 +21,7 @@ export function Signup() {
   return (
     <div className="bg-white relative w-full min-h-screen flex flex-col">
       <Header
-        title="회원가입"
+        content="회원가입"
         onClick={() => {
           navigate(-1);
         }}
