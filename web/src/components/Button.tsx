@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
+import { textStyles } from '@/lib/typography';
 
 // 로그인, 회원가입: primary
-// 다음, 확인: secondary
+// 다음, 확인:
 interface CustomButtonProps {
 	text?: string;
 	children?: ReactNode;
@@ -14,7 +15,7 @@ interface CustomButtonProps {
 	fontColor?: string;
 	fontWeight?: string;
 	onClick?: () => void;
-	variant?: 'primary' | 'secondary' | 'danger' | 'outline';
+	variant?: 'primary' | 'secondary' | 'third' | 'fourth';
 	disabled?: boolean;
 	style?: React.CSSProperties;
 }
@@ -27,21 +28,20 @@ type VariantStyle = {
 
 const variantStyles: Record<NonNullable<CustomButtonProps['variant']>, VariantStyle> = {
 	primary: {
-		bg: 'border border-black border-solid box-border flex items-center justify-center px-[10px] py-[10px] w-[300px] h-auto',
-		text: "font-['Pretendard_Variable',sans-serif] font-normal text-[17px] text-black text-center",
+		bg: 'bg-[#668cff] h-12 sm:h-[52px] md:h-14 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 w-full',
+		text: `${textStyles.button.button1} leading-[1.5] text-base sm:text-lg md:text-xl text-white text-center`,
 	},
 	secondary: {
-		bg: 'bg-gray-300',
-		text: 'text-gray-800',
+		bg: 'bg-[#cfcfd7] h-12 sm:h-[52px] md:h-14 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 w-full',
+		text: `${textStyles.button.button1} leading-[1.5] text-base sm:text-lg md:text-xl text-[#63637e] text-center`,
 	},
-	danger: {
-		bg: 'bg-red-600',
-		text: 'text-white',
+	third: {
+		bg: 'bg-[#cfcfd7] h-[54px] sm:h-[58px] md:h-[62px] rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-5 py-3.5 sm:py-4 md:py-4.5 w-full',
+		text: `${textStyles.button.button1} leading-[1.5] text-base sm:text-lg md:text-xl text-[#63637e] text-center`,
 	},
-	outline: {
-		bg: 'bg-white',
-		text: 'text-blue-500',
-		border: 'border border-blue-500',
+	fourth: {
+		bg: 'bg-[#f0f4ff] h-10 sm:h-11 md:h-12 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 w-full',
+		text: `${textStyles.button.button1} leading-[1.5] text-sm sm:text-base md:text-lg text-[#668cff] text-center`,
 	},
 };
 
@@ -58,6 +58,7 @@ export default function Button({
 	fontWeight,
 	onClick,
 	variant,
+	style,
 }: CustomButtonProps) {
 	const variantClass: VariantStyle = variant ? variantStyles[variant] : { bg: '', text: '', border: '' };
 
@@ -65,7 +66,7 @@ export default function Button({
 	const buttonClasses = variant 
 		? variantClass.bg 
 		: [
-			width || 'w-auto',
+			width || 'w-full',
 			height || 'h-auto',
 			padding || 'px-4 py-2',
 			backgroundColor || '',
@@ -85,7 +86,7 @@ export default function Button({
 	const finalButtonClasses = [baseClasses, buttonClasses].filter(Boolean).join(' ');
 
 	return (
-		<button className={finalButtonClasses} onClick={onClick}>
+		<button className={finalButtonClasses} onClick={onClick} style={style}>
 			{textClasses ? (
 				<span className={textClasses}>{text ?? children}</span>
 			) : (
