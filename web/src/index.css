@@ -3,8 +3,71 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Pretendard", system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -48,18 +111,68 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Responsive Scale Variables */
+  /* 기준 화면 크기 (390px 기준) */
+  --base-width: 390;
+  --base-height: 844;
+  
+  /* 현재 화면 크기 (JavaScript로 업데이트됨) */
+  --current-width: 390;
+  --current-height: 844;
+  
+  /* 스케일 비율 계산 */
+  --scale-x: calc(var(--current-width) / var(--base-width));
+  --scale-y: calc(var(--current-height) / var(--base-height));
+  
+  /* 최소/최대 스케일 제한 */
+  --scale-min: 0.8;
+  --scale-max: 1.5;
+  --scale-clamped: clamp(var(--scale-min), var(--scale-x), var(--scale-max));
+  
+  /* 뷰포트 높이 (모바일 브라우저 주소창 대응) */
+  --vh: 1vh;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  min-height: calc(var(--vh, 1vh) * 100);
+  font-family: "Pretendard", system-ui, -apple-system, sans-serif;
+}
+
+/* 큰 화면에서 최대 너비 제한 (모바일 앱 느낌 유지) */
+@media (min-width: 481px) {
+  body {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     background-color: #ffffff;
+  }
+}
+
+/* 반응형 브레이크포인트별 스케일 조정 */
+@media (max-width: 389px) {
+  :root {
+    --scale-clamped: 0.9;
+  }
+}
+
+@media (min-width: 390px) and (max-width: 480px) {
+  :root {
+    --scale-clamped: 1;
+  }
+}
+
+@media (min-width: 481px) {
+  :root {
+    --scale-clamped: 1.2;
   }
 }
 
@@ -99,6 +212,69 @@ body {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Design System Colors - Primary (Blue) */
+  --color-blue-50: #f0f4ff;
+  --color-blue-100: #d0dbff;
+  --color-blue-200: #b9caff;
+  --color-blue-300: #98b2ff;
+  --color-blue-400: #85a3ff;
+  --color-blue-500: #668cff;
+  --color-blue-600: #5d7fe8;
+  --color-blue-700: #4863b5;
+  --color-blue-800: #384d8c;
+  --color-blue-900: #2b3b6b;
+
+  /* Design System Colors - Grayscale */
+  --color-gray-50: #efeff2;
+  --color-gray-100: #cfcfd7;
+  --color-gray-200: #b7b7c4;
+  --color-gray-300: #9696a9;
+  --color-gray-400: #828298;
+  --color-gray-500: #63637e;
+  --color-gray-600: #5a5a73;
+  --color-gray-700: #464659;
+  --color-gray-800: #363645;
+  --color-gray-900: #2a2a35;
+
+  /* Design System Colors - Success */
+  --color-success-100: #e6f9f2;
+  --color-success-500: #08c481;
+  --color-success-700: #068b5c;
+
+  /* Design System Colors - Warning */
+  --color-warning-100: #ffeec9;
+  --color-warning-500: #ffc852;
+  --color-warning-600: #e8b64b;
+
+  /* Design System Colors - Error */
+  --color-error-100: #ffc5c1;
+  --color-error-500: #ff4538;
+  --color-error-700: #b53128;
+
+  /* Design System Shadows */
+  --shadow-e100: 0px 2px 4px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.03), 0px 0.5px 0px 0px rgba(0, 0, 0, 0.02);
+  --shadow-e200: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  --shadow-e300: 0px 4px 14px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-e400: 0px 4px 12px 0px rgba(0, 0, 0, 0.16), 0px 1px 4px 0px rgba(0, 0, 0, 0.03);
+  --shadow-e500: 0px 8px 24px 0px rgba(0, 0, 0, 0.2), 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+
+  /* Typography - Headlines */
+  --font-family-sans: "Pretendard", system-ui, -apple-system, sans-serif;
+
+  /* Text Styles */
+  --font-size-h1: 24px;
+  --font-size-h2: 22px;
+  --font-size-h3: 20px;
+  --font-size-subtitle: 18px;
+  --font-size-body1: 18px;
+  --font-size-body2: 16px;
+  --font-size-button1: 16px;
+  --font-size-button2: 14px;
+  --font-size-caption: 12px;
+
+  --line-height-tight: 1.5;
+  --letter-spacing-normal: 0;
 }
 
 .dark {
@@ -141,5 +317,228 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Headlines */
+  .text-h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-h2 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Subtitle */
+  .text-subtitle-bold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-subtitle-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Body 1 */
+  .text-body1-bold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body1-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body1-medium {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body1-regular {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Body 2 */
+  .text-body2-bold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body2-semibold {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body2-medium {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-body2-regular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Button */
+  .text-button1 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-button2 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Caption */
+  .text-caption-semibold {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-caption-medium {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-caption-regular {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Design System Shadows */
+  .shadow-e100 {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.03), 0px 0.5px 0px 0px rgba(0, 0, 0, 0.02);
+  }
+
+  .shadow-e200 {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-e300 {
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-e400 {
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.16), 0px 1px 4px 0px rgba(0, 0, 0, 0.03);
+  }
+
+  .shadow-e500 {
+    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.2), 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Responsive Utilities */
+  /* 스케일 기반 크기 조정 */
+  .scale-text {
+    font-size: calc(1rem * var(--scale-clamped, 1));
+  }
+
+  /* 뷰포트 기반 높이 (모바일 브라우저 주소창 대응) */
+  .h-screen-safe {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    height: 100dvh; /* 동적 뷰포트 높이 지원 브라우저 */
+  }
+
+  /* 최대 너비 제한 컨테이너 */
+  .container-mobile {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 390px) {
+    .container-mobile {
+      max-width: 390px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (min-width: 481px) {
+    .container-mobile {
+      max-width: 480px;
+    }
+  }
+
+  /* 터치 영역 최소 크기 보장 */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* 반응형 폰트 크기 (clamp 사용) */
+  .text-responsive-h1 {
+    font-size: clamp(20px, calc(24px * var(--scale-clamped, 1)), 32px);
+  }
+
+  .text-responsive-h2 {
+    font-size: clamp(18px, calc(22px * var(--scale-clamped, 1)), 28px);
+  }
+
+  .text-responsive-h3 {
+    font-size: clamp(16px, calc(20px * var(--scale-clamped, 1)), 24px);
+  }
+
+  .text-responsive-subtitle {
+    font-size: clamp(16px, calc(18px * var(--scale-clamped, 1)), 22px);
+  }
+
+  .text-responsive-body1 {
+    font-size: clamp(16px, calc(18px * var(--scale-clamped, 1)), 20px);
+  }
+
+  .text-responsive-body2 {
+    font-size: clamp(14px, calc(16px * var(--scale-clamped, 1)), 18px);
   }
 }
