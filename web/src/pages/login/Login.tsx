@@ -41,7 +41,7 @@ export function Login() {
             });
             
             console.log("로그인 성공:", response);
-            // localStorage.setItem("accessToken", response.result.accessToken);
+            localStorage.setItem("accessToken", response.result.accessToken);
             navigate("/");
         } catch (error: unknown) {
             if (error && typeof error === 'object' && 'response' in error) {

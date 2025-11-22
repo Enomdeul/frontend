@@ -12,6 +12,7 @@ interface SkillsSelectorProps {
 
 export function SkillsSelector({title, description, selectedSkills, onUpdate, maxSkills}: SkillsSelectorProps) {
   const {data: skills} = useSkills();
+  console.log(skills);
   const {handleToggleSkill, isSkillSelected} = useSkillToggle({
     selectedSkills,
     maxSkills,
@@ -32,14 +33,14 @@ export function SkillsSelector({title, description, selectedSkills, onUpdate, ma
             <h2 className={`${textStyles.body1.bold} text-gray-900`}>{skillGroup.jobGroup} 툴</h2>
             <div className="flex gap-2 flex-wrap">
               {skillGroup.skills.map((skill) => {
-                const isSelected = isSkillSelected(skill.skill_id);
+                const isSelected = isSkillSelected(skill.skillId);
                 return (
                   <button
-                    key={skill.skill_id}
-                    onClick={() => handleToggleSkill(skill.skill_id)}
+                    key={skill.skillId}
+                    onClick={() => handleToggleSkill(skill.skillId)}
                     className={`px-6 py-2 rounded-full ${textStyles.button.button2} transition-colors ${isSelected ? "bg-blue-100 border border-blue-600 text-blue-600" : "bg-white text-gray-700 border border-transparent"}`}
                   >
-                    {skill.skill_name}
+                    {skill.skillName}
                   </button>
                 );
               })}

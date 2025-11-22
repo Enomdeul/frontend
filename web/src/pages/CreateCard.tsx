@@ -10,6 +10,7 @@ import type {Step1Data, Step2Data, Step3Data, Step4Data} from "@/types/steps";
 import type {CardFormData} from "@/service/create-card/api";
 import {useCreateCard} from "@/service/create-card/queries";
 import {useNavigate} from "react-router";
+import {jobGroupIds} from "@/constants/jobGroup";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -50,11 +51,12 @@ export function CreateCard() {
       const cardFormData: CardFormData = {
         name: step1.name,
         age: parseInt(step1.age),
+        gender: step1.gender,
         organization: step1.school,
-        jobGroup: step1.job,
+        jobGroup: jobGroupIds[step1.job],
         introduction: step4.introduction,
-        skills: step2.selectedSkills,
-        desiredSkills: step3.selectedSkills,
+        skills: step2.selectedSkills.map((skillId) => ({skillId})),
+        desiredSkills: step3.selectedSkills.map((skillId) => ({skillId})),
       };
 
       createCard(cardFormData);
@@ -68,6 +70,7 @@ export function CreateCard() {
 
   const handleClickPrev = () => {
     if (currentStep === 1) {
+      navigate("/");
       return;
     }
 
