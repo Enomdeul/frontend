@@ -4,7 +4,6 @@ import {Signup} from "./pages/signup/Signup";
 import {Splash} from "./pages/signup/Splash";
 import {CreateCard} from "./pages/CreateCard";
 
-
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +18,7 @@ export const routes = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: "/createcard",
+    path: "/card/create",
     element: <CreateCard />,
   },
 ]);
