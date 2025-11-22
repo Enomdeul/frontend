@@ -1,9 +1,20 @@
-export function Step3({data, setData}: {data: any; setData: any}) {
-  const {job} = data;
+import {SkillsSelector} from "./SkillsSelector";
+import type {Step3Data} from "@/types/steps";
+interface Step3Props {
+  data: Step3Data;
+  setData: (data: Step3Data) => void;
+}
 
-  return (
-    <div>
-      <h1>Step 3</h1>
-    </div>
-  );
+export function Step3({data, setData}: Step3Props) {
+  const {selectedSkills} = data;
+  console.log(selectedSkills);
+  const MAX_SKILLS = 5;
+
+  const handleUpdate = (updatedSkills: number[]) => {
+    setData({
+      selectedSkills: updatedSkills,
+    });
+  };
+
+  return <SkillsSelector title="더하고 싶은 스킬을 선택해주세요." description="스킬은 총 5개까지 선택할 수 있어요." selectedSkills={selectedSkills} onUpdate={handleUpdate} maxSkills={MAX_SKILLS} />;
 }

@@ -3,11 +3,10 @@ import Header from "@/components/Header";
 import {Step2} from "@/components/create-card/Step2";
 import {Step3} from "@/components/create-card/Step3";
 import {Step4} from "@/components/create-card/Step4";
-import {Step5} from "@/components/create-card/Step5";
 import {initialStepData} from "@/constants/steps";
 import {Step1} from "@/components/create-card/Step1";
 import Button from "@/components/Button";
-import type {Step1Data, Step2Data} from "@/types/steps";
+import type {Step1Data, Step2Data, Step3Data, Step4Data} from "@/types/steps";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -26,7 +25,6 @@ function ProgressBar({currentStep}: ProgressBarProps) {
         <div className={`w-2 h-2 rounded-full ${progressBarClasses[currentStep === 2 ? "active" : "inactive"]}`}></div>
         <div className={`w-2 h-2 rounded-full ${progressBarClasses[currentStep === 3 ? "active" : "inactive"]}`}></div>
         <div className={`w-2 h-2 rounded-full ${progressBarClasses[currentStep === 4 ? "active" : "inactive"]}`}></div>
-        <div className={`w-2 h-2 rounded-full ${progressBarClasses[currentStep === 5 ? "active" : "inactive"]}`}></div>
       </div>
     </div>
   );
@@ -38,11 +36,7 @@ export function CreateCard() {
     ...initialStepData.step1,
   });
   const [step2, setStep2] = useState<Step2Data>(initialStepData.step2);
-  const [step3, setStep3] = useState(initialStepData.step3);
-  const [step4, setStep4] = useState(initialStepData.step4);
-  const [step5, setStep5] = useState(initialStepData.step5);
-
-  console.log(step2);
+  const [step3, setStep3] = useState<Step3Data>(initialStepData.step3);
 
   const handleChangeStep = () => {
     if (currentStep === 5) {
@@ -72,9 +66,6 @@ export function CreateCard() {
       case 4:
         setStep3(initialStepData.step3);
         break;
-      case 5:
-        setStep4(initialStepData.step4);
-        break;
       default:
         break;
     }
@@ -87,8 +78,7 @@ export function CreateCard() {
       {currentStep === 1 && <Step1 data={step1} setData={setStep1} />}
       {currentStep === 2 && <Step2 data={step2} setData={setStep2} />}
       {currentStep === 3 && <Step3 data={step3} setData={setStep3} />}
-      {currentStep === 4 && <Step4 data={step4} setData={setStep4} />}
-      {currentStep === 5 && <Step5 data={step5} setData={setStep5} />}
+      {/* {currentStep === 4 && <Step4 data={step4} setData={setStep4} />} */}
 
       {/* Bottom Button */}
       <div className="fixed bottom-0 left-0 right-0 bg-white px-4 pb-5 pt-4">
