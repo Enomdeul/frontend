@@ -1,3 +1,4 @@
+import { textStyles } from '@/lib/typography';
 
 type TextFieldProps = {
     label?: string;
@@ -33,20 +34,20 @@ const TextField = ({
 }: TextFieldProps) => {
     const variantStyle = {
         login: {
-            wrapper: 'w-[300px]',
-            input: 'h-[58px] px-[19px] py-[15px]',
-            radius: 'rounded-[8px]',
-            font: 'text-base',
+            wrapper: 'w-[300px] sm:w-[320px] md:w-[340px]',
+            input: 'h-[58px] sm:h-[62px] md:h-[66px] px-[19px] sm:px-5 md:px-6 py-[15px] sm:py-4 md:py-[17px]',
+            radius: 'rounded-lg sm:rounded-xl md:rounded-2xl',
             border: 'border-[#000000] border-opacity-40',
             placeholder: 'placeholder:text-[#33323699]',
+            labelMargin: 'mb-[10px] sm:mb-3 md:mb-4',
         },
         signup: {
             wrapper: 'w-full',
-            input: 'h-[36px] px-3 py-3',
-            radius: 'rounded-[4px]',
-            font: 'text-sm',
-            border: 'border-black border-solid',
+            input: 'h-12 sm:h-14 md:h-16 px-4 sm:px-5 md:px-6 py-4 sm:py-4 md:py-4',
+            radius: 'rounded-xl sm:rounded-xl md:rounded-xl',
+            border: 'border border-[#CFCFD7]',
             placeholder: 'placeholder:text-[#8f8f8f]',
+            labelMargin: 'mb-1.5 sm:mb-2 md:mb-2.5',
         },  
     };
 
@@ -55,45 +56,45 @@ const TextField = ({
     return (
         <div className={`flex flex-col ${width ?? style.wrapper}`}>
             {label && (
-                <label className={`flex flex-start ${variant === 'signup' ? 'text-[15px] mb-[6px]' : 'text-lg mb-[10px]'} gap-[2px]`}>
+                <label className={`flex flex-start ${textStyles.body2.semibold} ${style.labelMargin} gap-0.5 sm:gap-1`}>
                     {label}
-                    {required && <span>*</span>}
+                    {required && <span className="text-red-500">*</span>}
                 </label>
             )}
             {rightButton ? (
-                <div className="flex gap-[6px]">
-                    <div className={`flex items-center text-base border bg-white ${style.border} ${style.radius} ${style.input} flex-1`}>
+                <div className="flex gap-2.5 sm:gap-2.5 md:gap-2.5 items-center">
+                    <div className={`flex items-center border bg-white ${style.border} ${style.radius} ${style.input} flex-1`}>
                         <input
                             type={type}
                             value={value}
                             onChange={onChange}
                             placeholder={placeholder}
                             disabled={disabled}
-                            className={`flex-1 ${style.font} bg-transparent outline-none placeholder:${style.placeholder}`}
+                            className={`flex-1 ${textStyles.body2.medium} bg-transparent outline-none placeholder:${style.placeholder}`}
                         />
-                        {rightIcon && <div className="w-[18px] h-[18px] px-12 py-12">{rightIcon}</div>}
+                        {rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
                     </div>
                     <button
                         onClick={rightButton.onClick}
-                        className="bg-[#d9d9d9] border border-black border-solid h-[36px] px-[10px] py-[10px] text-[10px] text-black text-center whitespace-nowrap"
+                        className={`bg-[#EFEFF2] h-12 sm:h-14 md:h-16 px-4 sm:px-5 md:px-6 py-4 sm:py-4 md:py-4 ${textStyles.button.button2} text-[#63637e] text-center whitespace-nowrap rounded-xl sm:rounded-xl md:rounded-xl transition hover:opacity-80 flex items-center justify-center`}
                     >
                         {rightButton.text}
                     </button>
                 </div>
             ) : (
-                <div className={`flex items-center text-base border bg-white ${style.border} ${style.radius} ${style.input}`}>
+                <div className={`flex items-center border bg-white ${style.border} ${style.radius} ${style.input}`}>
                     <input
                         type={type}
                         value={value}
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={disabled}
-                        className={`flex-1 ${style.font} bg-transparent outline-none placeholder:${style.placeholder}`}
+                        className={`flex-1 ${textStyles.body2.medium} bg-transparent outline-none placeholder:${style.placeholder}`}
                     />
-                    {rightIcon && <div className="w-[18px] h-[18px] px-12 py-12">{rightIcon}</div>}
+                    {rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
                 </div>
             )}
-            {error && <span className="flex flex-start mt-[3px] text-[11px] text-[#838389]">{error}</span>}
+            {error && <span className="flex flex-start mt-1 sm:mt-1.5 md:mt-2 text-[11px] sm:text-xs md:text-sm text-[#838389]">{error}</span>}
         </div>
     );
 };
