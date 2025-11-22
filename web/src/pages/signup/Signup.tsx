@@ -207,10 +207,10 @@ export function Signup() {
 
     return (
         <div className="bg-white relative w-full min-h-screen flex flex-col">
-            <Header />
+            <Header onClick={() => navigate(-1)} />
             {/* 폼 영역 */}
             <div className="flex items-center justify-center px-6 sm:px-7 md:px-8 pt-8 pb-24">
-                <div className="flex flex-col gap-12 sm:gap-14 md:gap-16 w-full max-w-[340px] sm:max-w-[360px] md:max-w-[380px]">
+                <div className="flex flex-col gap-12 sm:gap-14 md:gap-16 w-full flex-1">
                     {/* 첫 번째 섹션 */}
                     <div className="flex flex-col gap-12 sm:gap-14 md:gap-16">
                         {/* 아이디 */}

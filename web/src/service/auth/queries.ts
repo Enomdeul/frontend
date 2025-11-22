@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { signup, checkIdDuplicate, checkEmailDuplicate } from "./api";
-import type { SignupRequest } from "@/types/auth";
+import { signup, checkIdDuplicate, checkEmailDuplicate, login } from "./api";
+import type { LoginRequest, SignupRequest } from "@/types/auth";
 
 export const useSignup = () => {
     return useMutation({
@@ -25,6 +25,15 @@ export const useCheckEmailDuplicate = () => {
         mutationFn: (email: string) => checkEmailDuplicate(email),
         onError: (error) => {
             console.error("Error checking Email duplicate:", error);
+        },
+    });
+};
+
+export const useLogin = () => {
+    return useMutation({
+        mutationFn: (data: LoginRequest) => login(data),
+        onError: (error) => {
+            console.error("Error logining up:", error);
         },
     });
 };

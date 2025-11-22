@@ -1,5 +1,5 @@
 import { authAxiosInstance } from "../axiosInstance";
-import type { SignupRequest, SignupResponse, CheckIdDuplicateResponse, CheckEmailDuplicateResponse } from "@/types/auth";
+import type { SignupRequest, SignupResponse, CheckIdDuplicateResponse, CheckEmailDuplicateResponse, LoginRequest, LoginResponse } from "@/types/auth";
 
 const AUTH_API_URI = "/api/v1/auth";
 
@@ -38,6 +38,19 @@ export const checkEmailDuplicate = async (email: string): Promise<CheckEmailDupl
         return response.data;
     } catch (error) {
         console.error("Error checking email duplicate:", error);
+        throw error;
+    }
+};
+
+export const login = async (data: LoginRequest): Promise<LoginResponse> => {
+    try {
+        const response = await authAxiosInstance.post<LoginResponse>(
+            `${AUTH_API_URI}/login`,
+            data
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error login up:", error);
         throw error;
     }
 };
