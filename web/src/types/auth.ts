@@ -36,4 +36,17 @@ export interface CheckEmailDuplicateResponse {
         available: boolean;
     };
 }
-// 나중에 로그인 타입도 추가
+
+export interface LoginRequest {
+    id: string;
+    password: string;
+}
+
+export interface LoginResponse {
+    code: string;
+    message: string;
+    result: {
+        accessToken: string;
+        refreshToken: string;
+    };
+}
