@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
+import { useNavigate } from "react-router";
 
 export function Signup() {
     const [formData, setFormData] = useState({
@@ -15,21 +16,23 @@ export function Signup() {
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="bg-white relative w-full min-h-screen flex flex-col">
             <Header />
             {/* 폼 영역 */}
-            <div className="flex items-center justify-center px-[26px] pt-8 pb-8">
-                <div className="flex flex-col gap-[53px] max-w-[340px]">
+            <div className="flex items-center justify-center px-6 sm:px-7 md:px-8 pt-8 pb-24">
+                <div className="flex flex-col gap-12 sm:gap-14 md:gap-16 w-full max-w-[340px] sm:max-w-[360px] md:max-w-[380px]">
                     {/* 첫 번째 섹션 */}
-                    <div className="flex flex-col gap-[53px]">
+                    <div className="flex flex-col gap-12 sm:gap-14 md:gap-16">
                         {/* 아이디 */}
-                        <div className="flex flex-col gap-[6px] relative">
+                        <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 relative">
                             <TextField
                                 label="아이디"
                                 value={formData.id}
                                 onChange={handleChange("id")}
-                                placeholder="아이디"
+                                placeholder="아이디를 입력해주세요."
                                 variant="signup"
                                 rightButton={{
                                     text: "중복 확인",
@@ -42,16 +45,16 @@ export function Signup() {
                         </div>
 
                         {/* 비밀번호 */}
-                        <div className="flex flex-col gap-[6px] relative">
+                        <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 relative">
                             <TextField
                                 label="비밀번호"
                                 value={formData.password}
                                 onChange={handleChange("password")}
-                                placeholder="비밀번호"
+                                placeholder="비밀번호를 입력해주세요."
                                 type="password"
                                 variant="signup"
                             />
-                            <div className="mt-[6px]">
+                            <div className="mt-1.5 sm:mt-2 md:mt-2.5">
                                 <TextField
                                     value={formData.passwordConfirm}
                                     onChange={handleChange("passwordConfirm")}
@@ -71,7 +74,7 @@ export function Signup() {
                                 label="이메일"
                                 value={formData.email}
                                 onChange={handleChange("email")}
-                                placeholder="이메일"
+                                placeholder="이메일을 입력해주세요."
                                 type="email"
                                 variant="signup"
                                 rightButton={{
@@ -87,23 +90,20 @@ export function Signup() {
                 </div>
             </div>
 
-            {/* 확인 버튼 */}
-            <div className="flex items-center justify-center px-[26px] pb-8">
-                <Button
-                    backgroundColor="bg-neutral-100"
-                    border="border border-black border-solid"
-                    borderRadius="rounded-[30px]"
-                    height="h-[49px]"
-                    width="w-full max-w-[340px]"
-                    fontColor="text-black"
-                    fontWeight="text-[17px]"
-                    onClick={() => {
-                        // 회원가입 로직
-                        console.log("회원가입:", formData);
-                    }}
-                >
-                    확인
-                </Button>
+            <div className="fixed bottom-0 left-0 right-0 w-full flex justify-center items-center px-3 sm:px-4 md:px-5 py-2">
+                <div className="w-full sm:gap-4 md:gap-5 items-center w-[91.8%] sm:w-[92%] md:w-[93%] max-w-[358px]">
+                    <Button
+                        variant="primary"
+                        onClick={() => navigate("/signup")}
+                        width="w-full"
+                        style={{
+                            height: '48px',
+                            padding: '8px 12px',
+                        }}
+                    >
+                        완료
+                    </Button>
+                </div>
             </div>
         </div>
     );
