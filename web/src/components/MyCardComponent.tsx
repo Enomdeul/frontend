@@ -1,6 +1,5 @@
 import {textStyles} from "@/lib/typography";
 import {symbolMap} from "@/constants/symbol";
-import {jobGroupMap} from "@/constants/jobGroup";
 
 export interface MyCardData {
   name: string;
@@ -23,7 +22,6 @@ interface MyCardComponentProps {
 }
 
 export function MyCardComponent({data}: MyCardComponentProps) {
-  console.log(data);
   // Map skill IDs to skill names
   const getSkillNames = (skills: {skillId: number; skillName: string}[]): string[] => {
     if (!skills) return [];
@@ -55,7 +53,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
               {data.name} ({data.age})
             </h2>
             <p className={`${textStyles.body2.regular} text-gray-600`}>
-              {jobGroupMap[data.jobGroup]} | {data.organization}
+              {data.jobGroup} | {data.organization}
             </p>
           </div>
 

@@ -1,14 +1,57 @@
-import {useNavigate} from "react-router";
+import {useNavigate, useLocation} from "react-router";
 import {MyCardComponent} from "@/components/MyCardComponent";
 import myCardBg from "@/assets/image/my_card_bg.png";
 import Button from "@/components/Button";
 import {textStyles} from "@/lib/typography";
 import {useMyCard} from "@/service/my-card/queries";
+import type {MyCardData} from "@/components/MyCardComponent";
+import {useIsLogin} from "@/hooks/useIsLogin";
+import {jobGroupMap} from "@/constants/jobGroup";
+import {useSkills} from "@/service/skills/queries";
 
 export function MyCard() {
+  useIsLogin();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const {data: cardData, isFetching} = useMyCard();
+  // location.state에서 전달된 카드 데이터 확인
+  const stateCardData = location.state?.cardData as MyCardData | undefined;
+  const {data: apiCardData, isFetching} = useMyCard();
+  const {data: skillsData} = useSkills();
+
+  // API 데이터를 정규화: jobGroup을 한국어로 변환하고 스킬 이름 추가
+  const normalizeApiData = (data: any): MyCardData | undefined => {
+    if (!data) return undefined;
+
+    // 스킬 이름 매핑 함수
+    const getSkillName = (skillId: number): string => {
+      if (!skillsData) return "";
+      for (const skillGroup of skillsData) {
+        const skill = skillGroup.skills.find((s) => s.skillId === skillId);
+        if (skill) return skill.skillName;
+      }
+      return "";
+    };
+
+    return {
+      name: data.name,
+      age: data.age,
+      jobGroup: jobGroupMap[data.jobGroup] || data.jobGroup, // 영어를 한국어로 변환
+      organization: data.organization,
+      introduction: data.introduction,
+      skills: (data.skills || []).map((skill: any) => ({
+        skillId: skill.skillId || skill.skill_id,
+        skillName: skill.skillName || getSkillName(skill.skillId || skill.skill_id),
+      })),
+      desiredSkills: (data.desiredSkills || []).map((skill: any) => ({
+        skillId: skill.skillId || skill.skill_id,
+        skillName: skill.skillName || getSkillName(skill.skillId || skill.skill_id),
+      })),
+    };
+  };
+
+  // state에서 전달된 데이터가 있으면 우선 사용, 없으면 정규화된 API 데이터 사용
+  const cardData = stateCardData || normalizeApiData(apiCardData);
 
   // const mockCardData = {
   //   name: "배윤서",
@@ -55,7 +98,7 @@ export function MyCard() {
   // };
 
   const handleBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (

@@ -12,7 +12,7 @@ interface SkillsSelectorProps {
 
 export function SkillsSelector({title, description, selectedSkills, onUpdate, maxSkills}: SkillsSelectorProps) {
   const {data: skills} = useSkills();
-  console.log(skills);
+
   const {handleToggleSkill, isSkillSelected} = useSkillToggle({
     selectedSkills,
     maxSkills,
