@@ -1,3 +1,3 @@
 export function Home() {
-  return <div>hello world test</div>;
+  return <div className="text-blue-600 text-h3">세상에 이런</div>;
 }

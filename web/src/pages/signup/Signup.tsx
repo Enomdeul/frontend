@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import Header from "@/components/Header";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
 
 export function Signup() {
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
         password: "",
@@ -18,18 +17,7 @@ export function Signup() {
 
     return (
         <div className="bg-white relative w-full min-h-screen flex flex-col">
-            {/* 뒤로가기 버튼 - 나중에 따로 뺴기 */}
-            <div className="flex items-center px-6 pt-4 pb-2">
-                <button 
-                    onClick={() => navigate(-1)}
-                    className="w-6 h-6 flex items-center justify-center"
-                >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-
+            <Header />
             {/* 폼 영역 */}
             <div className="flex items-center justify-center px-[26px] pt-8 pb-8">
                 <div className="flex flex-col gap-[53px] max-w-[340px]">

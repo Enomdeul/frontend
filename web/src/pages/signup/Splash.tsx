@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import { useNavigate } from "react-router";
 
-export function Onboarding() {
+export function Splash() {
     const navigate = useNavigate();
 
     return (
