@@ -7,6 +7,7 @@ import {Step5} from "@/components/create-card/Step5";
 import {initialStepData} from "@/constants/steps";
 import {Step1} from "@/components/create-card/Step1";
 import Button from "@/components/Button";
+import type {Step1Data, Step2Data} from "@/types/steps";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -33,13 +34,15 @@ function ProgressBar({currentStep}: ProgressBarProps) {
 
 export function CreateCard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [step1, setStep1] = useState({
+  const [step1, setStep1] = useState<Step1Data>({
     ...initialStepData.step1,
   });
-  const [step2, setStep2] = useState(initialStepData.step2);
+  const [step2, setStep2] = useState<Step2Data>(initialStepData.step2);
   const [step3, setStep3] = useState(initialStepData.step3);
   const [step4, setStep4] = useState(initialStepData.step4);
   const [step5, setStep5] = useState(initialStepData.step5);
+
+  console.log(step2);
 
   const handleChangeStep = () => {
     if (currentStep === 5) {

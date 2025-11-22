@@ -5,3 +5,7 @@ export interface Step1Data {
   school: string;
   job: string;
 }
+
+export interface Step2Data {
+  selectedSkills: number[];
+}

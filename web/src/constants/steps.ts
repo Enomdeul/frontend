@@ -6,8 +6,7 @@ const step1Default = {
   job: "",
 };
 const step2Default = {
-  school: "",
-  job: "",
+  selectedSkills: [],
 };
 const step3Default = {
   job: "",
