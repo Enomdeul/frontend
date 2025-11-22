@@ -163,6 +163,52 @@ body {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Design System Colors - Primary (Blue) */
+  --color-blue-50: #f0f4ff;
+  --color-blue-100: #d0dbff;
+  --color-blue-200: #b9caff;
+  --color-blue-300: #98b2ff;
+  --color-blue-400: #85a3ff;
+  --color-blue-500: #668cff;
+  --color-blue-600: #5d7fe8;
+  --color-blue-700: #4863b5;
+  --color-blue-800: #384d8c;
+  --color-blue-900: #2b3b6b;
+
+  /* Design System Colors - Grayscale */
+  --color-gray-50: #efeff2;
+  --color-gray-100: #cfcfd7;
+  --color-gray-200: #b7b7c4;
+  --color-gray-300: #9696a9;
+  --color-gray-400: #828298;
+  --color-gray-500: #63637e;
+  --color-gray-600: #5a5a73;
+  --color-gray-700: #464659;
+  --color-gray-800: #363645;
+  --color-gray-900: #2a2a35;
+
+  /* Design System Colors - Success */
+  --color-success-100: #e6f9f2;
+  --color-success-500: #08c481;
+  --color-success-700: #068b5c;
+
+  /* Design System Colors - Warning */
+  --color-warning-100: #ffeec9;
+  --color-warning-500: #ffc852;
+  --color-warning-600: #e8b64b;
+
+  /* Design System Colors - Error */
+  --color-error-100: #ffc5c1;
+  --color-error-500: #ff4538;
+  --color-error-700: #b53128;
+
+  /* Design System Shadows */
+  --shadow-e100: 0px 2px 4px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.03), 0px 0.5px 0px 0px rgba(0, 0, 0, 0.02);
+  --shadow-e200: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  --shadow-e300: 0px 4px 14px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-e400: 0px 4px 12px 0px rgba(0, 0, 0, 0.16), 0px 1px 4px 0px rgba(0, 0, 0, 0.03);
+  --shadow-e500: 0px 8px 24px 0px rgba(0, 0, 0, 0.2), 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+
   /* Typography - Headlines */
   --font-family-sans: "Pretendard", system-ui, -apple-system, sans-serif;
 
@@ -355,5 +401,26 @@ body {
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0;
+  }
+
+  /* Design System Shadows */
+  .shadow-e100 {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03), 0px 1px 2px 0px rgba(0, 0, 0, 0.03), 0px 0.5px 0px 0px rgba(0, 0, 0, 0.02);
+  }
+
+  .shadow-e200 {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-e300 {
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-e400 {
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.16), 0px 1px 4px 0px rgba(0, 0, 0, 0.03);
+  }
+
+  .shadow-e500 {
+    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.2), 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
   }
 }
