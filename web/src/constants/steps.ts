@@ -13,7 +13,7 @@ const step3Default = {
   selectedSkills: [],
 };
 const step4Default = {
-  job: "",
+  introduction: "",
 };
 
 export const initialStepData = {

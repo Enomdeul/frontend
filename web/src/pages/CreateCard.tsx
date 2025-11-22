@@ -37,6 +37,7 @@ export function CreateCard() {
   });
   const [step2, setStep2] = useState<Step2Data>(initialStepData.step2);
   const [step3, setStep3] = useState<Step3Data>(initialStepData.step3);
+  const [step4, setStep4] = useState<Step4Data>(initialStepData.step4);
 
   const handleChangeStep = () => {
     if (currentStep === 5) {
@@ -78,11 +79,11 @@ export function CreateCard() {
       {currentStep === 1 && <Step1 data={step1} setData={setStep1} />}
       {currentStep === 2 && <Step2 data={step2} setData={setStep2} />}
       {currentStep === 3 && <Step3 data={step3} setData={setStep3} />}
-      {/* {currentStep === 4 && <Step4 data={step4} setData={setStep4} />} */}
+      {currentStep === 4 && <Step4 data={step4} setData={setStep4} />}
 
       {/* Bottom Button */}
       <div className="fixed bottom-0 left-0 right-0 bg-white px-4 pb-5 pt-4">
-        <Button variant="primary" onClick={handleChangeStep} text={currentStep === 5 ? "완료" : "다음"} />
+        <Button variant="primary" onClick={handleChangeStep} text={currentStep === 4 ? "완료" : "다음"} />
       </div>
     </div>
   );
