@@ -1,10 +1,10 @@
 import {textStyles} from "@/lib/typography";
-import profileBg from "@/assets/image/my_card_profile.png";
+import {symbolMap} from "@/constants/symbol";
 
 export interface MyCardData {
   name: string;
   age: number;
-  job: string;
+  jobGroup: string;
   organization: string;
   introduction: string;
   skills: {
@@ -40,7 +40,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
     <div className="relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60">
       {/* Profile Background Image */}
       <div className="absolute left-[113.29px] top-[-66px] w-[315.12px] h-[351.84px] pointer-events-none">
-        <img src={profileBg} alt="" className="w-full h-full object-cover" />
+        <img src={symbolMap[data.jobGroup]} alt="" className="w-auto object-contain" />
       </div>
 
       {/* Content Container - positioned at x: 28, y: 71, width: 302px */}
@@ -53,7 +53,7 @@ export function MyCardComponent({data}: MyCardComponentProps) {
               {data.name} ({data.age})
             </h2>
             <p className={`${textStyles.body2.regular} text-gray-600`}>
-              {data.job} | {data.organization}
+              {data.jobGroup} | {data.organization}
             </p>
           </div>
 
