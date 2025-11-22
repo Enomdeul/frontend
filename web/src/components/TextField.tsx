@@ -1,4 +1,5 @@
 import { textStyles } from '@/lib/typography';
+import { AlertCircle, Check } from 'lucide-react';
 
 type TextFieldProps = {
     label?: string;
@@ -10,6 +11,7 @@ type TextFieldProps = {
     width?: string;
     required?: boolean;
     error?: string;
+    success?: string;
     variant?: 'login' | 'signup';
     rightIcon?: React.ReactNode;
     rightButton?: {
@@ -28,6 +30,7 @@ const TextField = ({
     width,
     required,
     error,
+    success,
     variant = 'login', 
     rightIcon,
     rightButton,
@@ -52,6 +55,13 @@ const TextField = ({
     };
 
     const style = variantStyle[variant];
+    const hasError = !!error;
+    const hasSuccess = !!success;
+    const borderColor = hasError 
+        ? 'border border-[#FF4538]' 
+        : hasSuccess 
+        ? 'border border-[#08C481]' 
+        : style.border;
 
     return (
         <div className={`flex flex-col ${width ?? style.wrapper}`}>
@@ -63,7 +73,7 @@ const TextField = ({
             )}
             {rightButton ? (
                 <div className="flex gap-2.5 sm:gap-2.5 md:gap-2.5 items-center">
-                    <div className={`flex items-center border bg-white ${style.border} ${style.radius} ${style.input} flex-1`}>
+                    <div className={`flex items-center border bg-white ${borderColor} ${style.radius} ${style.input} flex-1`}>
                         <input
                             type={type}
                             value={value}
@@ -72,7 +82,17 @@ const TextField = ({
                             disabled={disabled}
                             className={`flex-1 ${textStyles.body2.medium} bg-transparent outline-none placeholder:${style.placeholder}`}
                         />
-                        {rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
+                        {hasError && (
+                            <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                                <AlertCircle className="w-5 h-5 text-[#FF4538]" />
+                            </div>
+                        )}
+                        {hasSuccess && !hasError && (
+                            <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                                <Check className="w-5 h-5 text-[#08C481]" />
+                            </div>
+                        )}
+                        {!hasError && !hasSuccess && rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
                     </div>
                     <button
                         onClick={rightButton.onClick}
@@ -82,7 +102,7 @@ const TextField = ({
                     </button>
                 </div>
             ) : (
-                <div className={`flex items-center border bg-white ${style.border} ${style.radius} ${style.input}`}>
+                <div className={`flex items-center border bg-white ${borderColor} ${style.radius} ${style.input}`}>
                     <input
                         type={type}
                         value={value}
@@ -91,10 +111,29 @@ const TextField = ({
                         disabled={disabled}
                         className={`flex-1 ${textStyles.body2.medium} bg-transparent outline-none placeholder:${style.placeholder}`}
                     />
-                    {rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
+                    {hasError && (
+                        <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                            <AlertCircle className="w-5 h-5 text-[#FF4538]" />
+                        </div>
+                    )}
+                    {hasSuccess && !hasError && (
+                        <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                            <Check className="w-5 h-5 text-[#08C481]" />
+                        </div>
+                    )}
+                    {!hasError && !hasSuccess && rightIcon && <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0">{rightIcon}</div>}
                 </div>
             )}
-            {error && <span className="flex flex-start mt-1 sm:mt-1.5 md:mt-2 text-[11px] sm:text-xs md:text-sm text-[#838389]">{error}</span>}
+            {error && (
+                <span className={`flex flex-start mt-2 text-[12px] ${textStyles.caption.medium} text-[#FF4538]`}>
+                    {error}
+                </span>
+            )}
+            {success && !error && (
+                <span className={`flex flex-start mt-2 text-[12px] ${textStyles.caption.medium} text-[#08C481]`}>
+                    {success}
+                </span>
+            )}
         </div>
     );
 };

@@ -12,8 +12,45 @@ export function Signup() {
         email: "",
     });
 
+    const [errors, setErrors] = useState<{
+        id?: string;
+        password?: string;
+        passwordConfirm?: string;
+        email?: string;
+    }>({
+        // id: "이미 존재하는 아이디에요요.",
+        // passwordConfirm: "비밀번호가 일치하지 않아요요.",
+        // email: "이미 가입한 이메일이에요.",
+    });
+
+    const [successes, setSuccesses] = useState<{
+        id?: string;
+        password?: string;
+        passwordConfirm?: string;
+        email?: string;
+    }>({
+        // id: "아이디 설정이 완료됐어요.",
+        // passwordConfirm: "비밀번호 설정이 완료됐어요.",
+        // email: "이메일 설정이 완료됐어요.",
+    });
+
     const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
+        // 입력 시 해당 필드의 에러 및 성공 메시지 제거
+        if (errors[field as keyof typeof errors]) {
+            setErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[field as keyof typeof errors];
+                return newErrors;
+            });
+        }
+        if (successes[field as keyof typeof successes]) {
+            setSuccesses(prev => {
+                const newSuccesses = { ...prev };
+                delete newSuccesses[field as keyof typeof successes];
+                return newSuccesses;
+            });
+        }
     };
 
     const navigate = useNavigate();
@@ -34,10 +71,16 @@ export function Signup() {
                                 onChange={handleChange("id")}
                                 placeholder="아이디를 입력해주세요."
                                 variant="signup"
+                                error={errors.id}
+                                success={successes.id}
                                 rightButton={{
                                     text: "중복 확인",
                                     onClick: () => {
                                         // 중복 확인 로직
+                                        // 테스트용: 성공 케이스 표시
+                                        // setSuccesses(prev => ({ ...prev, id: "아이디 설정이 완료됐어요." }));
+                                        // 테스트용: 에러 케이스 표시
+                                        // setErrors(prev => ({ ...prev, id: "이미 존재하는 아이디예요." }));
                                         console.log("아이디 중복 확인:", formData.id);
                                     }
                                 }}
@@ -61,6 +104,8 @@ export function Signup() {
                                     placeholder="비밀번호 재입력"
                                     type="password"
                                     variant="signup"
+                                    error={errors.passwordConfirm}
+                                    success={successes.passwordConfirm}
                                 />
                             </div>
                         </div>
@@ -77,10 +122,16 @@ export function Signup() {
                                 placeholder="이메일을 입력해주세요."
                                 type="email"
                                 variant="signup"
+                                error={errors.email}
+                                success={successes.email}
                                 rightButton={{
                                     text: "중복 확인",
                                     onClick: () => {
                                         // 중복 확인 로직
+                                        // 테스트용: 성공 케이스 표시
+                                        // setSuccesses(prev => ({ ...prev, email: "이메일 설정이 완료됐어요." }));
+                                        // 테스트용: 에러 케이스 표시
+                                        // setErrors(prev => ({ ...prev, email: "이미 가입한 이메일이에요." }));
                                         console.log("이메일 중복 확인:", formData.email);
                                     }
                                 }}
