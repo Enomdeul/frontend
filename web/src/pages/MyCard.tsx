@@ -1,3 +1,5 @@
+// 내 카드 생성 완료 페이지
+
 import {useNavigate, useLocation} from "react-router";
 import {MyCardComponent} from "@/components/MyCardComponent";
 import myCardBg from "@/assets/image/my_card_bg.png";
@@ -6,7 +8,6 @@ import {textStyles} from "@/lib/typography";
 import {useMyCard} from "@/service/my-card/queries";
 import type {MyCardData} from "@/components/MyCardComponent";
 import {useIsLogin} from "@/hooks/useIsLogin";
-import {jobGroupMap} from "@/constants/jobGroup";
 import {useSkills} from "@/service/skills/queries";
 
 export function MyCard() {
@@ -36,7 +37,7 @@ export function MyCard() {
     return {
       name: data.name,
       age: data.age,
-      jobGroup: jobGroupMap[data.jobGroup] || data.jobGroup, // 영어를 한국어로 변환
+      jobGroup: data.jobGroup, // 영어 키 그대로 전달 (MyCardComponent에서 한글로 변환)
       organization: data.organization,
       introduction: data.introduction,
       skills: (data.skills || []).map((skill: any) => ({
