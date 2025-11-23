@@ -1,23 +1,38 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import Header from "@/components/Header";
 import { MyCardComponent } from "@/components/MyCardComponent";
 import Button from "@/components/Button";
 import { Modal } from "@/components/Modal";
 import myCardBg from "@/assets/image/my_card_bg.png";
 
+// role을 jobGroup으로 변환하는 맵 (MyCardComponent의 symbolMap 키와 일치하도록 영어로)
+const roleToJobGroupMap: Record<string, string> = {
+    designer: "DESIGNER",
+    planner: "PLAN",
+    developer: "DEVELOPER",
+};
+
 export function UserCardDetail() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [showSendMatchModal, setShowSendMatchModal] = useState(false);
     const [showSendSuccessModal, setShowSendSuccessModal] = useState(false);
 
-    // TODO: URL 파라미터나 API에서 유저 카드 데이터 가져오기
+    // URL 파라미터에서 데이터 가져오기
+    const name = searchParams.get("name") || "설정원";
+    const role = searchParams.get("role") || "designer";
+    const age = parseInt(searchParams.get("age") || "24", 10);
+    const jobGroup = roleToJobGroupMap[role] || "디자인";
+
+    // TODO: 실제 유저 ID를 사용해서 API에서 전체 카드 데이터 가져오기
+    // 현재는 URL 파라미터에서 받은 기본 정보와 mockData를 조합
     const mockCardData = {
-        name: "설정원",
-        age: 24,
-        jobGroup: "디자인",
-        organization: "홍익대학교 디자인컨버전스학부",
-        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스 디자인하는 프로덕트 디자이너 설정원입니다.",
+        name,
+        age,
+        jobGroup,
+        organization: "홍익대학교 디자인컨버전스학부", // TODO: API에서 가져오기
+        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스를 만드는 프로덕트 디자이너입니다.", // TODO: API에서 가져오기
         skills: [
             { skillId: 1, skillName: "Adobe Illustrator" },
             { skillId: 2, skillName: "Adobe Photoshop" },

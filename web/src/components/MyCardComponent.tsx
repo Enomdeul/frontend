@@ -38,6 +38,14 @@ export function MyCardComponent({data, className, showSkillBorder}: MyCardCompon
   const firstRowSkills = skillNames.slice(0, 2);
   const secondRowSkills = skillNames.slice(2);
 
+  // jobGroup을 한글로 변환 (symbolMap 키는 영어, 표시는 한글)
+  const jobGroupDisplayMap: Record<string, string> = {
+    PLAN: "기획",
+    DESIGNER: "디자인",
+    DEVELOPER: "개발",
+  };
+  const jobGroupDisplay = jobGroupDisplayMap[data.jobGroup] || data.jobGroup;
+
   return (
     <div className={`relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 ${className || ""}`}>
       {/* Profile Background Image */}
@@ -55,7 +63,7 @@ export function MyCardComponent({data, className, showSkillBorder}: MyCardCompon
               {data.name} ({data.age})
             </h2>
             <p className={`${textStyles.body2.regular} text-gray-600`}>
-              {data.jobGroup} | {data.organization}
+              {jobGroupDisplay} | {data.organization}
             </p>
           </div>
 

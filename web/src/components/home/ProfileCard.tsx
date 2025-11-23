@@ -11,9 +11,9 @@ interface ProfileCardProps {
 export function ProfileCard({ role, name, age, onClick }: ProfileCardProps) {
     // role에 따라 symbol 이미지 매핑
     const roleToSymbolMap: Record<"designer" | "planner" | "developer", string> = {
-        designer: symbolMap["디자인"],
-        planner: symbolMap["기획"],
-        developer: symbolMap["개발"],
+        designer: symbolMap["DESIGNER"],
+        planner: symbolMap["PLAN"],
+        developer: symbolMap["DEVELOPER"],
     };
 
     const profileImage = roleToSymbolMap[role];

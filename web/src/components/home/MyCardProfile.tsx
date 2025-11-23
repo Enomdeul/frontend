@@ -21,6 +21,15 @@ const jobGroupMap: Record<string, string> = {
     DEV: "개발",
 };
 
+// jobGroup을 한글로 변환하는 맵 (표시용)
+const jobGroupDisplayMap: Record<string, string> = {
+    PLAN: "기획",
+    DESIGNER: "디자인",
+    DEVELOPER: "개발",
+    DESIGN: "디자인",
+    DEV: "개발",
+};
+
 export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
   const { data: cardData, isLoading, error } = useMyCard();
 
@@ -66,6 +75,15 @@ export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
 
   if (!data) return null;
 
+  // jobGroup을 영어 키로 변환 (symbolMap용) - 한글이면 영어로, 영어면 그대로
+  const jobGroupForSymbol = data.jobGroup === "기획" ? "PLAN" 
+    : data.jobGroup === "디자인" ? "DESIGNER" 
+    : data.jobGroup === "개발" ? "DEVELOPER"
+    : data.jobGroup; // 이미 영어 키인 경우
+
+  // 화면에 표시할 jobGroup (한글로 변환)
+  const jobGroupDisplay = jobGroupDisplayMap[data.jobGroup] || data.jobGroup;
+
   return (
     <div 
       className={`relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 border border-[#cfcfd7] shadow-sm ${onClick ? "cursor-pointer" : ""}`}
@@ -73,7 +91,7 @@ export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
     >
       {/* Profile Background Image */}
       <div className="absolute left-[113.29px] top-[-66px] w-[315.12px] h-[351.84px] pointer-events-none">
-        <img src={symbolMap[data.jobGroup]} alt="" className="w-auto object-contain" />
+        <img src={symbolMap[jobGroupForSymbol]} alt="" className="w-auto object-contain" />
       </div>
 
       {/* Content Container - positioned at x: 28, y: 71, width: 302px */}
@@ -86,7 +104,7 @@ export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
               {data.name} ({data.age})
             </h2>
             <p className={`${textStyles.body2.regular} text-gray-600`}>
-              {data.jobGroup} | {data.organization}
+              {jobGroupDisplay} | {data.organization}
             </p>
           </div>
 

@@ -16,25 +16,25 @@ interface MatchCardData {
 // 임시 데이터 (나중에 API로 대체)
 const mockReceivedMatches: MatchCardData[] = [
     {
-        name: "김윤서",
+        name: "설정원",
         age: 23,
-        jobGroup: "기획",
+        jobGroup: "PLAN",
         organization: "이화여자대학교 융합콘텐츠학과",
-        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스를 만드는 PM\n배윤서입니다.",
+        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스를 만드는 PM\n설정원입니다.",
     },
     {
         name: "이은서",
-        age: 23,
-        jobGroup: "디자인",
-        organization: "이화여자대학교 융합콘텐츠학과",
-        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스를 만드는\n디자이너 이은서입니다.",
+        age: 24,
+        jobGroup: "DESIGNER",
+        organization: "이화여자대학교 디자인학과",
+        introduction: "사용자의 관점을 깊이 이해하고, 감각적인 디자인으로 경험을 완성하는 디자이너\n이은서입니다.",
     },
     {
-        name: "임수정",
+        name: "양혜원",
         age: 23,
-        jobGroup: "개발",
-        organization: "이화여자대학교 융합콘텐츠학과",
-        introduction: "사용자의 관점에서 생각하고, 창의적인 아이디어를 기반으로 유저 프렌들리한 서비스를 만드는 개발자\n임수정입니다.",
+        jobGroup: "DEVELOPER",
+        organization: "가천대학교 소프트웨어학과",
+        introduction: "사용자의 관점을 최우선으로 두고, 창의적인 아이디어로 유저 친화적인 서비스를 만드는 개발자\n임수정입니다.",
     },
 ];
 
@@ -42,7 +42,16 @@ const mockSentMatches: MatchCardData[] = [
     // 나중에 API로 대체
 ];
 
+// jobGroup을 한글로 변환하는 맵
+const jobGroupDisplayMap: Record<string, string> = {
+    PLAN: "기획",
+    DESIGNER: "디자인",
+    DEVELOPER: "개발",
+};
+
 function MatchCard({ data, onClick }: { data: MatchCardData; onClick: () => void }) {
+    const jobGroupDisplay = jobGroupDisplayMap[data.jobGroup] || data.jobGroup;
+
     return (
         <div 
             className="relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 border border-[#cfcfd7] shadow-sm cursor-pointer"
@@ -63,7 +72,7 @@ function MatchCard({ data, onClick }: { data: MatchCardData; onClick: () => void
                             {data.name} ({data.age})
                         </h2>
                         <p className={`${textStyles.body2.regular} text-gray-600`}>
-                            {data.jobGroup} | {data.organization}
+                            {jobGroupDisplay} | {data.organization}
                         </p>
                     </div>
 

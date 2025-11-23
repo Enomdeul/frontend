@@ -7,6 +7,8 @@ import { HomeMyCard } from "@/components/home/HomeMyCard";
 import { SkillChip } from "@/components/home/SkillChip";
 import { ProfileCardList } from "@/components/home/ProfileCardList";
 import { useNavigate } from "react-router";
+import {useIsLogin} from "@/hooks/useIsLogin";
+import type { MyCardData } from "@/components/home/MyCardProfile";
 
 type Role = "designer" | "planner" | "developer" | null;
 
@@ -22,21 +24,46 @@ const skillToRoleMap: Record<string, Role> = {
 // 모든 프로필 데이터
 const allProfiles = [
     {
-        role: "designer" as const,
+        role: "planner" as const,
         name: "설정원",
         age: 24,
     },
     {
-        role: "planner" as const,
+        role: "designer" as const,
         name: "이은지",
         age: 24,
     },
 ];
 
+const someProfiles = [
+  {
+      role: "designer" as const,
+      name: "민지완",
+      age: 26,
+  },
+  {
+      role: "planner" as const,
+      name: "강시온",
+      age: 27,
+  },
+];
+
+// MyCard mockData (jobGroup은 영어 키로 - symbolMap과 일치)
+const mockMyCardData: MyCardData = {
+    name: "배윤서",
+    age: 23,
+    jobGroup: "PLAN",
+    organization: "이화여자대학교 융합콘텐츠학과",
+    introduction: "PM\n배윤서입니다.",
+};
+
+
+
 export function Home() {
     const navigate = useNavigate();
     const [selectedSkill1, setSelectedSkill1] = useState<string | null>(null);
     const [selectedSkill2, setSelectedSkill2] = useState<string | null>(null);
+    useIsLogin();
 
     // 첫 번째 섹션 필터링
     const getFilteredProfiles1 = () => {
@@ -48,10 +75,10 @@ export function Home() {
 
     // 두 번째 섹션 필터링
     const getFilteredProfiles2 = () => {
-        if (!selectedSkill2) return allProfiles;
+        if (!selectedSkill2) return someProfiles;
         const role = skillToRoleMap[selectedSkill2];
-        if (role === null) return allProfiles;
-        return allProfiles.filter((profile) => profile.role === role);
+        if (role === null) return someProfiles;
+        return someProfiles.filter((profile) => profile.role === role);
     };
 
     return (
@@ -86,7 +113,7 @@ export function Home() {
                         My 카드
                     </h1>
                     <div className="pt-6 w-full max-w-[358px]">
-                        <HomeMyCard />
+                        <HomeMyCard data={mockMyCardData} />
                     </div>
                 </div>
                 {/* 스킬 섹션들 */}
@@ -128,8 +155,7 @@ export function Home() {
                             <ProfileCardList
                                 profiles={getFilteredProfiles1()}
                                 onCardClick={(profile) => {
-                                    // TODO: 실제 유저 ID를 사용하도록 수정 필요
-                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);
+                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}&role=${encodeURIComponent(profile.role)}&age=${profile.age}`);
                                 }}
                             />
                         </div>
@@ -170,8 +196,7 @@ export function Home() {
                             <ProfileCardList
                                 profiles={getFilteredProfiles2()}
                                 onCardClick={(profile) => {
-                                    // TODO: 실제 유저 ID를 사용하도록 수정 필요
-                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}`);
+                                    navigate(`/card/user-detail?name=${encodeURIComponent(profile.name)}&role=${encodeURIComponent(profile.role)}&age=${profile.age}`);
                                 }}
                             />
                         </div>
@@ -180,4 +205,6 @@ export function Home() {
             </div>
         </div>
     );
+  useIsLogin();
+  return <div className="text-blue-600 text-h3">세상에 이런</div>;
 }
