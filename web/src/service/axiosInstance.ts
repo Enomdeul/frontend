@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
+  baseURL: `/api/v1`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
 );
 
 export const authAxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL as string,
+  baseURL: `/api/v1`,
   headers: {
     "Content-Type": "application/json",
   },
