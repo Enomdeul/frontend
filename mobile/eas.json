@@ -10,10 +10,18 @@
     },
     "preview": {
       "distribution": "internal",
-      "buildType": "apk"
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_WEB_URL": "https://frontend-nine-beige-77.vercel.app"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_WEB_URL": "https://frontend-nine-beige-77.vercel.app"
+      }
     }
   },
   "submit": {
