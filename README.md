@@ -26,7 +26,7 @@
 |-----------|-------------|--------|-------|
 |<img width="488" height="773" alt="" src="https://github.com/user-attachments/assets/e4db19a1-8b91-4f22-af64-2354b946d003" />|<img width="488" height="773" alt="" src="https://github.com/user-attachments/assets/f6c76eae-c874-47fb-8b52-d1712e86eedc" />|<img width="488" height="773" alt="" src="https://github.com/user-attachments/assets/91af6b4e-9588-49fc-8436-af7f85234535" />|<img width="488" height="770" alt="" src="https://github.com/user-attachments/assets/6e8b32a8-ee8d-4ce9-a9cb-850fbc45e90a" />|
 
-| 제안 받은 매칭 | 다른 유저 프로필 카드 | 매칭 요청 | 매칭 요청 완료 |
+| 제안 받은 매칭 | 다른 유저 프로필 카드 | 매칭 수락 | 매칭 거절 |
 |-----------|-------------|--------|-------|
 |<img width="488" height="773" alt="" src="https://github.com/user-attachments/assets/191de283-6dc0-4fbc-b45d-367d75a132cb" />|<img width="488" height="770" alt="" src="https://github.com/user-attachments/assets/9930d5c8-d465-4f25-b96e-0a71907d2ac2" />|<img width="488" height="770" alt="" src="https://github.com/user-attachments/assets/81cb1633-ecdd-44a9-bf8b-ef32ac9cbfa9" />|<img width="488" height="770" alt="" src="https://github.com/user-attachments/assets/bcb72c8d-aac0-49a3-8f13-7ba934e66541" />|
 
