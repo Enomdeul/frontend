@@ -25,6 +25,7 @@ export function Step4({data, setData}: Step4Props) {
 
         <div className="flex items-center border border-gray-100 rounded-xl bg-white px-4 py-4">
           <textarea
+            spellCheck={false}
             value={introduction}
             onChange={handleChangeIntroduction}
             placeholder="한 줄 소개를 입력해주세요"

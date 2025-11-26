@@ -1,6 +1,6 @@
 import {textStyles} from "@/lib/typography";
 import {symbolMap} from "@/constants/symbol";
-import { useMyCard } from "@/service/card/queries";
+import {useMyCard} from "@/service/card/queries";
 
 export interface MyCardData {
   name: string;
@@ -16,22 +16,22 @@ interface MyCardProfileProps {
 }
 
 const jobGroupMap: Record<string, string> = {
-    PLAN: "기획",
-    DESIGN: "디자인",
-    DEV: "개발",
+  PLAN: "기획",
+  DESIGN: "디자인",
+  DEV: "개발",
 };
 
 // jobGroup을 한글로 변환하는 맵 (표시용)
 const jobGroupDisplayMap: Record<string, string> = {
-    PLAN: "기획",
-    DESIGNER: "디자인",
-    DEVELOPER: "개발",
-    DESIGN: "디자인",
-    DEV: "개발",
+  PLAN: "기획",
+  DESIGNER: "디자인",
+  DEVELOPER: "개발",
+  DESIGN: "디자인",
+  DEV: "개발",
 };
 
 export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
-  const { data: cardData, isLoading, error } = useMyCard();
+  const {data: cardData, isLoading, error} = useMyCard();
 
   // props로 데이터가 전달되면 사용, 없으면 API에서 가져오기
   let data: MyCardData | null = null;
@@ -39,9 +39,9 @@ export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
   if (propData) {
     data = propData;
   } else if (cardData?.result) {
-    const { name, age, organization, jobGroup, introduction } = cardData.result;
+    const {name, age, organization, jobGroup, introduction} = cardData.result;
     const jobGroupName = jobGroupMap[jobGroup] || jobGroup;
-    
+
     data = {
       name,
       age,
@@ -76,19 +76,13 @@ export function MyCardProfile({data: propData, onClick}: MyCardProfileProps) {
   if (!data) return null;
 
   // jobGroup을 영어 키로 변환 (symbolMap용) - 한글이면 영어로, 영어면 그대로
-  const jobGroupForSymbol = data.jobGroup === "기획" ? "PLAN" 
-    : data.jobGroup === "디자인" ? "DESIGNER" 
-    : data.jobGroup === "개발" ? "DEVELOPER"
-    : data.jobGroup; // 이미 영어 키인 경우
+  const jobGroupForSymbol = data.jobGroup === "기획" ? "PLAN" : data.jobGroup === "디자인" ? "DESIGNER" : data.jobGroup === "개발" ? "DEVELOPER" : data.jobGroup; // 이미 영어 키인 경우
 
   // 화면에 표시할 jobGroup (한글로 변환)
   const jobGroupDisplay = jobGroupDisplayMap[data.jobGroup] || data.jobGroup;
 
   return (
-    <div 
-      className={`relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 border border-[#cfcfd7] shadow-sm ${onClick ? "cursor-pointer" : ""}`}
-      onClick={onClick}
-    >
+    <div className={`relative w-full max-w-[358px] rounded-[24px] overflow-hidden bg-white/60 border border-[#cfcfd7] shadow-sm ${onClick ? "cursor-pointer" : ""}`} onClick={onClick}>
       {/* Profile Background Image */}
       <div className="absolute left-[113.29px] top-[-66px] w-[315.12px] h-[351.84px] pointer-events-none">
         <img src={symbolMap[jobGroupForSymbol]} alt="" className="w-auto object-contain" />

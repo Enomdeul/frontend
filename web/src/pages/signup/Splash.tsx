@@ -2,10 +2,8 @@ import {useNavigate} from "react-router";
 import asLogo from "@/assets/as_logo.svg";
 import {textStyles} from "@/lib/typography";
 import Button from "@/components/Button";
-import {useIsLogin} from "@/hooks/useIsLogin";
 
 export function Splash() {
-  useIsLogin();
   const navigate = useNavigate();
 
   return (

@@ -5,10 +5,8 @@ import Button from "@/components/Button";
 import {useNavigate} from "react-router";
 import {useCheckIdDuplicate, useCheckEmailDuplicate, useSignup} from "@/service/auth/queries";
 import type {ApiErrorResponse} from "@/types/auth";
-import {useIsLogin} from "@/hooks/useIsLogin";
 
 export function Signup() {
-  useIsLogin();
   const checkIdMutation = useCheckIdDuplicate();
   const checkEmailMutation = useCheckEmailDuplicate();
   const signupMutation = useSignup();

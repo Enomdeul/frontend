@@ -10,10 +10,8 @@ import type {Step1Data, Step2Data, Step3Data, Step4Data} from "@/types/steps";
 import type {CardFormData} from "@/service/create-card/api";
 import {useCreateCard} from "@/service/create-card/queries";
 import {useNavigate} from "react-router";
-import {jobGroupIds} from "@/constants/jobGroup";
 import {useSkills} from "@/service/skills/queries";
 import type {MyCardData} from "@/components/MyCardComponent";
-import {useIsLogin} from "@/hooks/useIsLogin";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -38,8 +36,6 @@ function ProgressBar({currentStep}: ProgressBarProps) {
 }
 
 export function CreateCard() {
-  useIsLogin();
-
   const [currentStep, setCurrentStep] = useState(1);
   const [step1, setStep1] = useState<Step1Data>({
     ...initialStepData.step1,
@@ -60,7 +56,7 @@ export function CreateCard() {
         age: parseInt(step1.age),
         gender: step1.gender,
         organization: step1.school,
-        jobGroup: jobGroupIds[step1.job],
+        jobGroup: step1.job,
         introduction: step4.introduction,
         skills: step2.selectedSkills.map((skillId) => ({skillId})),
         desiredSkills: step3.selectedSkills.map((skillId) => ({skillId})),
