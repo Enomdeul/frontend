@@ -7,11 +7,9 @@ import Button from "@/components/Button";
 import {textStyles} from "@/lib/typography";
 import {useMyCard} from "@/service/my-card/queries";
 import type {MyCardData} from "@/components/MyCardComponent";
-import {useIsLogin} from "@/hooks/useIsLogin";
 import {useSkills} from "@/service/skills/queries";
 
 export function MyCard() {
-  useIsLogin();
   const navigate = useNavigate();
   const location = useLocation();
 

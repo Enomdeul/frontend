@@ -5,10 +5,8 @@ import {textStyles} from "@/lib/typography";
 import {useNavigate} from "react-router";
 import {useLogin} from "@/service/auth/queries";
 import type {ApiErrorResponse} from "@/types/auth";
-import {useIsLogin} from "@/hooks/useIsLogin";
 
 export function Login() {
-  useIsLogin();
   const loginMutation = useLogin();
   const navigate = useNavigate();
 

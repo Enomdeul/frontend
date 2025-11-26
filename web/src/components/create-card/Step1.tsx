@@ -92,15 +92,15 @@ export function Step1({data, setData}: Step1Props) {
               <SelectValue placeholder="직군 선택" />
             </SelectTrigger>
             <SelectContent className="rounded-xl border border-gray-100 shadow-e300 bg-white [&>div]:p-0">
-              <SelectItem value="기획" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
+              <SelectItem value="PLAN" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
                 <img src={PlannerIcon} alt="기획" className="w-6 h-6 shrink-0" />
                 <span>기획</span>
               </SelectItem>
-              <SelectItem value="디자인" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
+              <SelectItem value="DESIGNER" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
                 <img src={DesignerIcon} alt="디자인" className="w-6 h-6 shrink-0" />
                 <span>디자인</span>
               </SelectItem>
-              <SelectItem value="개발" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
+              <SelectItem value="DEVELOPER" className={`${textStyles.body1.medium} text-gray-700 hover:bg-gray-50 py-4 px-5 pr-8 flex items-center gap-3`}>
                 <img src={DeveloperIcon} alt="개발" className="w-6 h-6 shrink-0" />
                 <span>개발</span>
               </SelectItem>
